@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import PostsPage from "./posts/page";
 import LoginPage from "./login/LoginPage";
+import Link from "next/link";
 
 export default function ClientLayout() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -23,8 +24,8 @@ export default function ClientLayout() {
       <header>
         <h1>My Blog</h1>
         <nav>
-          <a href="/">Home</a>
-          <a href="/posts">Posts</a>
+          <Link href="/">Home</Link>
+          <Link href="/posts">Posts</Link>
           {isLoggedIn && (
             <button
               onClick={() => {
