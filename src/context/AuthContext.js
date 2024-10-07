@@ -14,6 +14,8 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [loginError, setLoginError] = useState(null);
+
   const router = useRouter();
   useEffect(() => {
     const checkToken = async () => {
@@ -37,6 +39,7 @@ export const AuthProvider = ({ children }) => {
       setIsLoggedIn(true);
       router.push("/posts");
     } catch (err) {
+      setLoginError(err?.response?.data?.detail);
       console.error(err);
     }
   };
@@ -51,7 +54,9 @@ export const AuthProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, handleLogout, handleLogin }}>
+    <AuthContext.Provider
+      value={{ isLoggedIn, handleLogout, handleLogin, loginError }}
+    >
       {children}
     </AuthContext.Provider>
   );
