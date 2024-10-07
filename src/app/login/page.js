@@ -1,35 +1,27 @@
 "use client";
 
 import { useState } from "react";
-import api from "../../utils/axiosInstance";
-import { saveTokens } from "../../services/tokenService";
-import { redirect } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
 
 function LoginPage() {
+  const { handleLogin } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleLogin = async (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      const response = await api.post("/api/token/", { username, password });
-      saveTokens(response.data.access, response.data.refresh);
-      redirect("/");
+      await handleLogin(username, password);
     } catch (err) {
-      setError(
-        err.response
-          ? err.response.data.detail
-          : "Login failed. Please try again."
-      );
+      setError(err.response.data.detail);
     }
   };
 
   return (
     <div>
       <h1>Login</h1>
-      <form onSubmit={handleLogin}>
+      <form onSubmit={onSubmit}>
         <input
           type="text"
           placeholder="Username"
