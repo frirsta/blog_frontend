@@ -33,7 +33,7 @@ export const refreshAccessToken = async () => {
 
     if (error.response && error.response.status === 401) {
       clearTokens();
-      window.location.href = "/login";
+      // window.location.href = "/login";
     }
 
     throw new Error("Token refresh failed");

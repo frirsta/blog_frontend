@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import api from "../../utils/axiosInstance";
+import Post from "@/components/ui/Post";
 
 function PostsPage() {
   const [posts, setPosts] = useState([]);
@@ -23,14 +24,14 @@ function PostsPage() {
 
     fetchPosts();
   }, []);
-
+  console.log(posts);
   return (
     <div>
       <h1>Posts</h1>
       {error && <div className="error-message">{error}</div>}
       <ul>
         {posts.map((post) => (
-          <li key={post.id}>{post.title}</li>
+          <Post key={post.id} post={post} />
         ))}
       </ul>
     </div>
