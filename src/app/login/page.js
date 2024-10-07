@@ -14,7 +14,7 @@ function LoginPage() {
     e.preventDefault();
     await handleLogin(username, password);
   };
- 
+
   return (
     <div>
       <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
@@ -57,6 +57,7 @@ function LoginPage() {
               </label>
               <div className="mt-2">
                 <input
+                  id="username"
                   type="text"
                   placeholder="Username"
                   value={username}
@@ -87,6 +88,7 @@ function LoginPage() {
               </div>
               <div className="mt-2">
                 <input
+                  id="password"
                   type="password"
                   placeholder="Password"
                   value={password}
