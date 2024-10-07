@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import api from "../utils/axiosInstance";
-import { saveTokens } from "../services/tokenService";
+import api from "../../utils/axiosInstance";
+import { saveTokens } from "../../services/tokenService";
 import { redirect } from "next/navigation";
 
 function LoginPage() {
