@@ -1,5 +1,5 @@
+import { AuthProvider } from "./context/AuthContext";
 import "./globals.css";
-import ClientLayout from "./client-layout";
 
 export const metadata = {
   title: "My Blog",
@@ -10,8 +10,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <ClientLayout />
-        {children}
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );

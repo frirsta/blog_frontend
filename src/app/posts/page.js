@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import api from "../utils/api";
+import api from "../utils/axiosInstance";
 
 function PostsPage() {
   const [posts, setPosts] = useState([]);
@@ -20,6 +20,7 @@ function PostsPage() {
         }
       }
     };
+
     fetchPosts();
   }, []);
 

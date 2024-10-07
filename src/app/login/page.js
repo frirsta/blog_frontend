@@ -1,6 +1,9 @@
 "use client";
+
 import { useState } from "react";
-import api from "../utils/api";
+import api from "../utils/axiosInstance";
+import { saveTokens } from "../services/tokenService";
+import { redirect } from "next/navigation";
 
 function LoginPage() {
   const [username, setUsername] = useState("");
@@ -11,11 +14,9 @@ function LoginPage() {
     e.preventDefault();
 
     try {
-      const response = await api.post("/api/token/", {
-        username,
-        password,
-      });
-      localStorage.setItem("accessToken", response.data.access);
+      const response = await api.post("/api/token/", { username, password });
+      saveTokens(response.data.access, response.data.refresh);
+      redirect("/");
     } catch (err) {
       setError(
         err.response
