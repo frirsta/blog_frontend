@@ -1,6 +1,7 @@
-import Navbar from "@/components/NavBar";
-import { AuthProvider } from "../context/AuthContext";
 import "./globals.css";
+import Navbar from "@/components/NavBar";
+import AuthGate from "@/components/AuthGate";
+import { AuthProvider } from "@/context/AuthContext";
 
 export const metadata = {
   title: "My Blog",
@@ -10,10 +11,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
+      <body className="bg-base-200">
         <AuthProvider>
           <Navbar />
-          {children}
+          <AuthGate>{children}</AuthGate>
         </AuthProvider>
       </body>
     </html>

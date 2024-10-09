@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
-import Image from "next/image";
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { useAuth } from "@/context/AuthContext";
 
 function LoginPage() {
   const { handleLogin, loginError } = useAuth();
@@ -16,110 +16,84 @@ function LoginPage() {
   };
 
   return (
-    <div>
-      <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+    <div className="min-h-screen flex items-center justify-center">
+      <motion.div
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="card w-full max-w-md bg-base-100 shadow-xl z-10"
+      >
+        <div className="card-body p-8">
           {loginError && (
-            <div className="bg-orange-200 px-6 py-4 my-4 rounded-md text-lg flex items-center mx-auto max-w-lg">
+            <div role="alert" className="alert alert-warning">
               <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 shrink-0 stroke-current"
+                fill="none"
                 viewBox="0 0 24 24"
-                className="text-yellow-600 w-5 h-5 sm:w-5 sm:h-5 mr-3"
               >
                 <path
-                  fill="currentColor"
-                  d="M23.119,20,13.772,2.15h0a2,2,0,0,0-3.543,0L.881,20a2,2,0,0,0,1.772,2.928H21.347A2,2,0,0,0,23.119,20ZM11,8.423a1,1,0,0,1,2,0v6a1,1,0,1,1-2,0Zm1.05,11.51h-.028a1.528,1.528,0,0,1-1.522-1.47,1.476,1.476,0,0,1,1.448-1.53h.028A1.527,1.527,0,0,1,13.5,18.4,1.475,1.475,0,0,1,12.05,19.933Z"
-                ></path>
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                />
               </svg>
-              <span className="text-yellow-800">
-                <div className="error">{loginError}</div>
-              </span>
+              <span>{loginError}</span>
             </div>
           )}
-          <Image
-            width={100}
-            height={100}
-            className="mx-auto w-auto"
-            src={"/logo.png"}
-            alt="Logo"
-          />
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-100">
-            Sign in to your account
-          </h2>
-        </div>
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            <div>
-              <label
-                htmlFor="username"
-                className="block text-sm font-medium leading-6 text-gray-100"
-              >
-                Username
-              </label>
-              <div className="mt-2">
-                <input
-                  id="username"
-                  type="text"
-                  placeholder="Username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  required
-                  autoComplete="username"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
+          <div className="mt-6  mb-6">
+            <h2 className="card-title text-3xl font-extrabold">Welcome!</h2>
+            <p className="text-base-content text-opacity-70">
+              Sign in to your account
+            </p>
+          </div>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="form-control">
+              <input
+                id="username"
+                type="text"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+                autoComplete="username"
+                className="input input-bordered w-full"
+              />
             </div>
 
-            <div>
-              <div className="flex items-center justify-between">
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium leading-6 text-gray-100"
-                >
-                  Password
-                </label>
-                <div className="text-sm">
-                  <a
-                    href="#"
-                    className="font-semibold text-indigo-600 hover:text-indigo-500"
-                  >
-                    Forgot password?
-                  </a>
-                </div>
-              </div>
-              <div className="mt-2">
-                <input
-                  id="password"
-                  type="password"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  autoComplete="current-password"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
+            <div className="form-control">
+              <input
+                id="password"
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                autoComplete="current-password"
+                className="input input-bordered w-full"
+              />
             </div>
 
-            <div>
-              <button
-                type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Sign in
-              </button>
-            </div>
-          </form>
-          <p className="mt-10 text-center text-sm text-gray-500">
-            Not a member?
-            <Link
-              href="/signup"
-              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              type="submit"
+              className="btn btn-primary w-full"
             >
-              &nbsp;Sign up now
-            </Link>
-          </p>
+              Login
+            </motion.button>
+          </form>
+          <div className="divider text-base-content text-opacity-70">
+            Don't have an account?
+          </div>
+
+          <Link href="/signup" className="w-fit m-auto text-primary">
+            Sign Up
+          </Link>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
