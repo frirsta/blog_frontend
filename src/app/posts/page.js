@@ -3,10 +3,12 @@
 import { useEffect, useState } from "react";
 import api from "../../utils/axiosInstance";
 import Post from "@/components/ui/Post";
+import PostSkeleton from "./loading";
 
 function PostsPage() {
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -19,6 +21,8 @@ function PostsPage() {
         } else {
           setError("An unexpected error occurred.");
         }
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -27,12 +31,13 @@ function PostsPage() {
   console.log(posts);
   return (
     <div>
-      <h1>Posts</h1>
       {error && <div className="error-message">{error}</div>}
       <ul>
-        {posts.map((post) => (
-          <Post key={post.id} post={post} />
-        ))}
+        {loading ? (
+          <PostSkeleton />
+        ) : (
+          posts.map((post) => <Post key={post.id} post={post} />)
+        )}
       </ul>
     </div>
   );

@@ -1,12 +1,12 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { useAuth } from "@/context/AuthContext";
 
 function LoginPage() {
-  const { handleLogin, loginError } = useAuth();
+  const { handleLogin, loginError } = useAuth() || {};
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -59,6 +59,7 @@ function LoginPage() {
                 required
                 autoComplete="username"
                 className="input input-bordered w-full"
+                aria-label="Username"
               />
             </div>
 
@@ -73,6 +74,7 @@ function LoginPage() {
                 required
                 autoComplete="current-password"
                 className="input input-bordered w-full"
+                aria-label="Password"
               />
             </div>
 
@@ -86,7 +88,7 @@ function LoginPage() {
             </motion.button>
           </form>
           <div className="divider text-base-content text-opacity-70">
-            Don't have an account?
+            Don&apos;t have an account?
           </div>
 
           <Link href="/signup" className="w-fit m-auto text-primary">

@@ -1,6 +1,12 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+} from "react";
 import { useRouter } from "next/navigation";
 import {
   getAccessToken,
@@ -19,6 +25,35 @@ export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
 
   const router = useRouter();
+  const handleLogin = async (username, password) => {
+    try {
+      const response = await api.post("/api/token/", { username, password });
+      saveTokens(response.data.access, response.data.refresh);
+      setIsLoggedIn(true);
+      await fetchCurrentUser();
+      router.push("/posts");
+    } catch (err) {
+      setLoginError(err?.response?.data?.detail);
+      console.error(err);
+    }
+  };
+
+  const handleLogout = useCallback(() => {
+    clearTokens();
+    setIsLoggedIn(false);
+    setCurrentUser(null);
+    router.push("/login");
+  }, [router]);
+
+  const fetchCurrentUser = useCallback(async () => {
+    try {
+      const response = await api.get("/profiles/");
+      setCurrentUser(response.data);
+    } catch (err) {
+      console.error("Failed to fetch current user:", err);
+      handleLogout();
+    }
+  }, [handleLogout]);
 
   useEffect(() => {
     const checkToken = async () => {
@@ -34,37 +69,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     checkToken();
-  }, []);
-
-  const handleLogin = async (username, password) => {
-    try {
-      const response = await api.post("/api/token/", { username, password });
-      saveTokens(response.data.access, response.data.refresh);
-      setIsLoggedIn(true);
-      await fetchCurrentUser();
-      router.push("/posts");
-    } catch (err) {
-      setLoginError(err?.response?.data?.detail);
-      console.error(err);
-    }
-  };
-
-  const handleLogout = () => {
-    clearTokens();
-    setIsLoggedIn(false);
-    setCurrentUser(null);
-    router.push("/login");
-  };
-
-  const fetchCurrentUser = async () => {
-    try {
-      const response = await api.get("/profiles/");
-      setCurrentUser(response.data);
-    } catch (err) {
-      console.error("Failed to fetch current user:", err);
-      handleLogout();
-    }
-  };
+  }, [fetchCurrentUser]);
 
   if (loading) {
     return <div>Loading...</div>;

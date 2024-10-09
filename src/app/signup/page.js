@@ -6,7 +6,7 @@ import Link from "next/link";
 import api from "@/utils/axiosInstance";
 import { useAuth } from "@/context/AuthContext";
 
-export default function page() {
+export default function SignupPage() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

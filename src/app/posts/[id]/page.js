@@ -1,6 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
-import api from "../../../utils/axiosInstance";
+import Image from "next/image";
+import api from "@/utils/axiosInstance";
+
 const calculateReadingTime = (text) => {
   const wordsPerMinute = 200;
   const wordCount = text.split(/\s+/).length;
@@ -32,7 +34,7 @@ export default function PostDetails({ params }) {
 
   const readingTime = calculateReadingTime(post.content);
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-base-100">
       <div className="max-w-3xl mx-auto">
         <div className="py-8">
           <h1 className="text-3xl font-bold mb-2 capitalize">{post.title}</h1>
@@ -41,15 +43,19 @@ export default function PostDetails({ params }) {
           </p>
         </div>
 
-        <img
+        <Image
+          width={100}
+          height={96}
           src={post.image}
-          alt="Featured image"
-          className="w-full h-96 mb-8 object-contain border-white border-[1px] bg-white"
+          alt={post.title}
+          className="w-full h-96 mb-8 object-contain border-white border-[1px]"
         />
 
         <div className="mb-8 flex flex-col">
           <div className="flex items-center">
-            <img
+            <Image
+              width={10}
+              height={10}
               className="w-10 h-10 rounded-full mr-2"
               src={"/profile_default.png"}
               alt="Avatar of Jonathan Reinink"
