@@ -14,14 +14,14 @@ const Post = ({ post }) => {
   const readingTime = calculateReadingTime(post.content);
   const maxContentLength = 100;
   return (
-    <div className="relative bg-base-100  px-6 pt-16 pb-20 lg:px-8 lg:pt-24 lg:pb-28">
+    <div className="relative  px-6 pt-16 pb-20 lg:px-8 lg:pt-24 lg:pb-28">
       <div className="absolute inset-0">
         <div className="h-1/3 sm:h-2/3"></div>
       </div>
       <div className="relative mx-auto max-w-7xl">
         <div className="mx-auto mt-12 grid max-w-lg gap-5 lg:max-w-xl lg:grid-cols-1">
-          <div className="flex flex-col overflow-hidden rounded-lg shadow-lg">
-            <div className="flex-shrink-0 bg-base-200">
+          <div className="bg-base-100 flex flex-col overflow-hidden rounded-lg shadow-lg">
+            <div className="flex-shrink-0 bg-base-300">
               <Image
                 width={500}
                 height={300}
@@ -33,7 +33,7 @@ const Post = ({ post }) => {
             <div className="flex flex-1 flex-col justify-between p-6">
               <div className="flex-1">
                 <p className="text-sm font-medium text-info">
-                  <Link href="#" className="hover:underline">
+                  <Link href={`/posts/${post.id}`} className="hover:underline">
                     Article
                   </Link>
                 </p>
