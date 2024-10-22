@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
       saveTokens(response.data.access, response.data.refresh);
       setIsLoggedIn(true);
       await fetchCurrentUser();
-      router.push("/posts");
+      router.push("/");
     } catch (err) {
       setLoginError(err?.response?.data?.detail);
       console.error(err);
