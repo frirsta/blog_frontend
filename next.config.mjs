@@ -3,9 +3,14 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
+        protocol: "http",
+        hostname: "res.cloudinary.com",
+        pathname: "/ddms7cvqu/image/upload/v1/blog_media/**",
+      },
+      {
         protocol: "https",
-        hostname: "frirsta-blog-53010ec1265c.herokuapp.com",
-        pathname: "/media/posts/**",
+        hostname: "res.cloudinary.com",
+        pathname: "/ddms7cvqu/image/upload/v1/blog_media/**",
       },
     ],
   },
