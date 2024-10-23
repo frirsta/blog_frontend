@@ -29,7 +29,7 @@ const NavBar = () => {
     <div>
       <div className="navbar bg-base-100 text-base-content">
         <div className="flex-1">
-          <Link href={"/posts"} className="btn btn-ghost text-xl">
+          <Link href={"/"} className="btn btn-ghost text-xl">
             daisyUI
           </Link>
         </div>
