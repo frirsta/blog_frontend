@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
   const router = useRouter();
   const handleLogin = async (username, password) => {
     try {
-      const response = await api.post("/api/token/", { username, password });
+      const response = await api.post("api/token/", { username, password });
       saveTokens(response.data.access, response.data.refresh);
       setIsLoggedIn(true);
       await fetchCurrentUser();
@@ -42,12 +42,13 @@ export const AuthProvider = ({ children }) => {
     clearTokens();
     setIsLoggedIn(false);
     setCurrentUser(null);
+    setLoginError(null);
     router.push("/login");
   }, [router]);
 
   const fetchCurrentUser = useCallback(async () => {
     try {
-      const response = await api.get("/profiles/");
+      const response = await api.get("profiles/");
       setCurrentUser(response.data);
     } catch (err) {
       console.error("Failed to fetch current user:", err);

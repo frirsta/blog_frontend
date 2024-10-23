@@ -1,7 +1,9 @@
 import "./globals.css";
 import Navbar from "@/components/NavBar";
 import AuthGate from "@/components/AuthGate";
+import Notification from "@/components/ui/Notification";
 import { AuthProvider } from "@/context/AuthContext";
+import { MessageProvider } from "@/context/MessageContext";
 
 export const metadata = {
   title: "My Blog",
@@ -13,8 +15,11 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className="bg-base-200">
         <AuthProvider>
-          <Navbar />
-          <AuthGate>{children}</AuthGate>
+          <MessageProvider>
+            <Navbar />
+            <Notification />
+            <AuthGate>{children}</AuthGate>
+          </MessageProvider>
         </AuthProvider>
       </body>
     </html>
