@@ -21,15 +21,16 @@ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
-    if (error.response && error.response.status === 401) {
-      try {
-        const newToken = await refreshAccessToken();
-        if (newToken) {
-          originalRequest.headers["Authorization"] = `Bearer ${newToken}`;
-          return api(originalRequest);
-        }
-      } catch (refreshError) {
-        console.error(refreshError);
+    if (
+      error.response &&
+      error.response.status === 401 &&
+      !originalRequest._retry
+    ) {
+      originalRequest._retry = true;
+      const newToken = await refreshAccessToken();
+      if (newToken) {
+        originalRequest.headers["Authorization"] = `Bearer ${newToken}`;
+        return api(originalRequest);
       }
     }
     return Promise.reject(error);

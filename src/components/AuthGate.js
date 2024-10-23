@@ -9,10 +9,16 @@ const AuthGate = ({ children }) => {
   const router = useRouter();
 
   useEffect(() => {
-    if (!isLoggedIn) {
-      if (!["/login", "/signup"].includes(router.asPath)) {
-        router.push("/login");
-      }
+    if (!router) return;
+
+    const allowedPaths = ["/login", "/signup", "/password-reset"];
+
+    if (
+      router.asPath &&
+      (router.asPath.startsWith("/password-reset-confirm/") ||
+        allowedPaths.includes(router.asPath))
+    ) {
+      return;
     }
   }, [isLoggedIn, router]);
 
