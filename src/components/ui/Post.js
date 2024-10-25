@@ -8,11 +8,22 @@ const calculateReadingTime = (text) => {
   const wordCount = text.split(/\s+/).length;
   return Math.ceil(wordCount / wordsPerMinute);
 };
-
+const getImageUrl = (imagePath) => {
+  if (!imagePath) {
+    return "/post_image_default.png";
+  }
+  return imagePath.startsWith("http")
+    ? imagePath
+    : `https://res.cloudinary.com/ddms7cvqu/${imagePath}`;
+};
 const Post = ({ post }) => {
   const formattedDate = format(new Date(post.created_at), "MMM dd, yyyy");
   const readingTime = calculateReadingTime(post.content);
   const maxContentLength = 100;
+
+  const postImageSrc = getImageUrl(post.image);
+  const authorImageSrc = getImageUrl(post.author_profile_picture);
+
   return (
     <div className="relative  px-6 pt-16 pb-20 lg:px-8 lg:pt-24 lg:pb-28">
       <div className="absolute inset-0">
@@ -26,7 +37,7 @@ const Post = ({ post }) => {
                 width={500}
                 height={300}
                 className="h-48 w-full object-contain"
-                src={post.image || "/post_image_default.png"}
+                src={postImageSrc}
                 alt={`Image for ${post.title}`}
               />
             </div>
@@ -54,7 +65,7 @@ const Post = ({ post }) => {
                       width={100}
                       height={100}
                       className="h-10 w-10 rounded-full"
-                      src={"/profile_default.png"}
+                      src={authorImageSrc}
                       alt={post.author || "Image not available"}
                     />
                   </Link>
