@@ -67,11 +67,11 @@ export default function PostDetails({ params }) {
         </div>
 
         <Image
-          width={100}
-          height={96}
+          width={1000}
+          height={1000}
           src={postImageSrc}
           alt={post.title}
-          className="w-full h-96 mb-8 object-contain border-white border-[1px]"
+          className="aspect-video mb-8 border-white border-[1px]"
         />
 
         <div className="mb-8 flex flex-col">
@@ -81,7 +81,7 @@ export default function PostDetails({ params }) {
               height={10}
               className="w-10 h-10 rounded-full mr-2"
               src={authorImageSrc}
-              alt="Avatar of Jonathan Reinink"
+              alt={`Avatar of ${post.author}`}
             />
             <p className="text-sm font-medium text-gray-500">{post.author}</p>
           </div>
