@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import api from "@/utils/axiosInstance";
 import { format } from "date-fns";
 
@@ -23,9 +24,9 @@ export default function PostDetails({ params }) {
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { id } = React.use(params);
   const postImageSrc = getImageUrl(post?.image);
   const authorImageSrc = getImageUrl(post?.profile_picture);
+  const { id } = React.use(params);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -76,14 +77,18 @@ export default function PostDetails({ params }) {
 
         <div className="mb-8 flex flex-col">
           <div className="flex items-center">
-            <Image
-              width={10}
-              height={10}
-              className="w-10 h-10 rounded-full mr-2"
-              src={authorImageSrc}
-              alt={`Avatar of ${post.author}`}
-            />
-            <p className="text-sm font-medium text-gray-500">{post.author}</p>
+            <Link href={`/profiles/${post.author}`}>
+              <Image
+                width={10}
+                height={10}
+                className="w-10 h-10 rounded-full mr-2"
+                src={authorImageSrc}
+                alt={`Avatar of ${post.owner}`}
+              />
+            </Link>
+            <p className="text-sm font-medium text-gray-500">
+              <Link href={`/profiles/${post.author}`}>{post.owner}</Link>
+            </p>
           </div>
           <div className="flex">
             <p className="mt-3 text-sm font-medium text-gray-500">
@@ -95,7 +100,12 @@ export default function PostDetails({ params }) {
           </div>
         </div>
         <div className="prose prose-sm sm:prose lg:prose-lg xl:prose-xl mx-auto">
-          <p>{post.content}</p>
+          <div
+            className="mt-3 text-opacity-80 text-base-content"
+            dangerouslySetInnerHTML={{
+              __html: post.content,
+            }}
+          />
         </div>
       </div>
     </div>

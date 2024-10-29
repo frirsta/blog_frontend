@@ -22,10 +22,10 @@ const Post = ({ post }) => {
   const maxContentLength = 100;
 
   const postImageSrc = getImageUrl(post.image);
-  const authorImageSrc = getImageUrl(post.author_profile_picture);
+  const authorImageSrc = getImageUrl(post.profile_picture);
 
   return (
-    <div className="relative px-6 pt-16 pb-20 lg:px-8 lg:pt-24 lg:pb-28">
+    <div className="relative px-6">
       <div className="mx-auto mt-12 grid max-w-lg gap-5 lg:max-w-xl lg:grid-cols-1">
         <div className="flex flex-col overflow-hidden rounded-lg shadow-lg">
           <div className="flex-shrink-0">
@@ -44,32 +44,41 @@ const Post = ({ post }) => {
                   Article
                 </Link>
               </p>
-              <Link href="#" className="mt-2 block">
+              <Link href={`/posts/${post.id}`} className="mt-2 block">
                 <p className="text-xl font-semibold ">{post.title}</p>
-                <p className="mt-3 text-opacity-80 text-base-content">
-                  {post.content?.length > maxContentLength
-                    ? `${post.content.substring(0, maxContentLength)}...`
-                    : post.content}
-                </p>
+                <div className="prose">
+                  <div
+                    className="mt-3 text-opacity-80 text-base-content"
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        post.content?.length > maxContentLength
+                          ? `${post.content.substring(0, maxContentLength)}...`
+                          : post.content,
+                    }}
+                  />
+                </div>
               </Link>
             </div>
             <div className="mt-6 flex items-center">
               <div className="flex-shrink-0">
-                <Link href="#">
-                  <span className="sr-only">{post.author}</span>
+                <Link href={`/profiles/${post.author}`}>
+                  <span className="sr-only">{post.owner}</span>
                   <Image
                     width={100}
                     height={100}
                     className="h-10 w-10 rounded-full"
                     src={authorImageSrc}
-                    alt={post.author || "Image not available"}
+                    alt={post.owner || "Image not available"}
                   />
                 </Link>
               </div>
               <div className="ml-3">
                 <p className="text-sm font-medium">
-                  <Link href="#" className="hover:underline">
-                    {post.author}
+                  <Link
+                    href={`/profiles/${post.author}`}
+                    className="hover:underline"
+                  >
+                    {post.owner}
                   </Link>
                 </p>
                 <div className="flex space-x-1 text-sm text-opacity-70 text-base-content">
