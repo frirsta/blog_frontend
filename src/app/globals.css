@@ -12,6 +12,15 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.PinturaButtonExport {
+  display: none;
+}
+
+.modal-box {
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

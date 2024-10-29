@@ -6,11 +6,23 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { themeChange } from "theme-change";
 import { useAuth } from "@/context/AuthContext";
+import CreatePost from "./post/CreatePost";
 
 const NavBar = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentTheme, setCurrentTheme] = useState("valentine");
+
   const { handleLogout, currentUser } = useAuth();
+
   const pathname = usePathname();
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
     themeChange(false);
@@ -25,6 +37,7 @@ const NavBar = () => {
     document.documentElement.setAttribute("data-theme", newTheme);
     localStorage.setItem("theme", newTheme);
   };
+
   return (
     <div>
       <div className="navbar bg-base-100 text-base-content">
@@ -34,6 +47,9 @@ const NavBar = () => {
           </Link>
         </div>
         <div className="flex-none gap-2">
+          <button onClick={openModal} className="btn btn-primary">
+            Create Post
+          </button>
           <button
             aria-label="Toggle night/valentine theme"
             className="btn btn-sm"
@@ -41,6 +57,7 @@ const NavBar = () => {
           >
             {currentTheme === "valentine" ? <FaMoon /> : <FaSun />}
           </button>
+
           {currentUser ? (
             <div className="dropdown dropdown-end">
               <div
@@ -85,6 +102,9 @@ const NavBar = () => {
           )}
         </div>
       </div>
+      {isModalOpen && (
+        <CreatePost isOpen={isModalOpen} closeModal={closeModal} />
+      )}
     </div>
   );
 };
