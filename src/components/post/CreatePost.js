@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+import DOMPurify from "dompurify";
 import api from "@/utils/axiosInstance";
 import PostEditor from "./PostEditor";
 import WarningModal from "./WarningModal";
@@ -69,13 +70,14 @@ const CreatePost = ({ isOpen, closeModal }) => {
 
   // Save post to backend
   const handleSavePost = async () => {
+    const sanitizedContent = DOMPurify.sanitize(content);
     try {
       const formData = new FormData();
       formData.append("title", title);
-      formData.append("content", content);
+      formData.append("content", sanitizedContent);
 
       if (processedImage) {
-        formData.append("image", processedImage); // Include the processed image
+        formData.append("image", processedImage);
       }
 
       const response = await api.post("posts/", formData, {
