@@ -1,102 +1,159 @@
 "use client";
-
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useAuth } from "@/context/AuthContext";
+import { useState, useEffect, useRef } from "react";
 import api from "@/utils/axiosInstance";
-import ImageUploader from "./ImageUploader";
-import ImageEditor from "./ImageEditor";
 import PostEditor from "./PostEditor";
-import SubmitButton from "./SubmitButton";
+import WarningModal from "./WarningModal";
+import ImageUpload from "./ImageUpload";
+import ImageEditor from "./ImageEditor";
 
-export default function CreatePost() {
+const CreatePost = ({ isOpen, closeModal }) => {
+  const [step, setStep] = useState(1);
+  const [imageSrc, setImageSrc] = useState(null);
+  const [processedImage, setProcessedImage] = useState(null);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [image, setImage] = useState(null);
-  const [editedImage, setEditedImage] = useState(null);
-  const [showEditor, setShowEditor] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [showWarning, setShowWarning] = useState(false);
+  const [discardOrigin, setDiscardOrigin] = useState(null);
 
-  const router = useRouter();
-  const { isLoggedIn } = useAuth();
+  const modalRef = useRef(null);
 
-  const handleImageChange = (file) => {
-    if (file) {
-      setImage(file);
-      setShowEditor(true);
+  // Close modal if clicked outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        if (step > 1) {
+          setDiscardOrigin("outsideClick");
+          setShowWarning(true);
+        } else {
+          closeModal();
+        }
+      }
+    };
+    if (isOpen) document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isOpen, closeModal, step]);
+
+  // Reset form after submission or discard
+  const resetForm = () => {
+    setStep(1);
+    setImageSrc(null);
+    setProcessedImage(null);
+    setTitle("");
+    setContent("");
+  };
+
+  // Handle back navigation and conditional warnings
+  const handleBackStep = () => {
+    if (step === 2) {
+      setDiscardOrigin("backButton");
+      setShowWarning(true);
+    } else if (step === 1) {
+      closeModal();
+    } else {
+      setStep(step - 1);
     }
   };
 
-  const handleImageSave = (editedBlob) => {
-    setEditedImage(editedBlob);
-    setShowEditor(false);
+  // Confirmation and cancellation for discarding post edits
+  const confirmDiscard = () => {
+    setShowWarning(false);
+    if (discardOrigin === "outsideClick") {
+      closeModal();
+    } else if (discardOrigin === "backButton") {
+      resetForm();
+    }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const cancelDiscard = () => setShowWarning(false);
 
+  // Save post to backend
+  const handleSavePost = async () => {
     try {
       const formData = new FormData();
       formData.append("title", title);
       formData.append("content", content);
-      if (editedImage) {
-        formData.append("image", editedImage, "edited-image.jpg");
-      } else if (image) {
-        formData.append("image", image);
+
+      if (processedImage) {
+        formData.append("image", processedImage); // Include the processed image
       }
 
       const response = await api.post("posts/", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+        headers: { "Content-Type": "multipart/form-data" },
       });
 
-      if (response.status === 201) {
-        router.push("/posts");
-      } else {
-        console.error(
-          `Failed to create post: Unexpected response status ${response.status}`
-        );
-      }
-    } catch (err) {
-      console.error("Failed to create post:", err);
+      if (response.status === 201) resetForm();
+      else console.error("Failed to create post");
+    } catch (error) {
+      setErrors(error.response?.data || {});
+      console.error("Error creating post:", error);
     }
   };
 
-  if (!isLoggedIn) {
-    return <div>Please log in to create a post.</div>;
-  }
-
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="card w-full max-w-md bg-base-100 shadow-xl p-8">
-        {!!image && (
-          <img
-            src={URL.createObjectURL(image)}
-            alt="Selected Image"
-            className="w-full h-64 object-cover rounded-lg mb-4"
-          />
-        )}
-        <h2 className="card-title text-3xl font-extrabold mb-6">
-          Create a Post
-        </h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {!showEditor && <ImageUploader onFileSelect={handleImageChange} />}
-          {showEditor && (
-            <ImageEditor
-              image={image}
-              onImageSave={handleImageSave}
-              onCancel={() => setShowEditor(false)}
+    isOpen && (
+      <div className="modal opacity-100 pointer-events-auto">
+        <div
+          ref={modalRef}
+          className="modal-box h-[600px] modal-middle py-8 rounded-lg drop-shadow-2xl"
+        >
+          <button
+            onClick={handleBackStep}
+            className="btn btn-circle btn-ghost absolute top-2 left-6 btn-xs"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+          </button>
+
+          {/* Step 1: Upload Image */}
+          {step === 1 && (
+            <ImageUpload
+              onImageSelect={setImageSrc}
+              onNext={() => setStep(2)}
             />
           )}
-          <PostEditor
-            title={title}
-            setTitle={setTitle}
-            content={content}
-            setContent={setContent}
-          />
-          <SubmitButton />
-        </form>
+
+          {/* Step 2: Edit Image */}
+          <div className={`${step === 2 ? "block" : "hidden"} w-full h-full`}>
+            <ImageEditor
+              imageSrc={imageSrc}
+              onNext={() => setStep(3)}
+              onProcessImage={setProcessedImage}
+            />
+          </div>
+
+          {/* Step 3: Edit Post Details */}
+          {step === 3 && (
+            <div className="w-full">
+              <PostEditor
+                title={title}
+                setTitle={setTitle}
+                content={content}
+                setContent={setContent}
+                error={errors}
+                onSave={handleSavePost}
+              />
+            </div>
+          )}
+          {showWarning && (
+            <WarningModal onCancel={cancelDiscard} onConfirm={confirmDiscard} />
+          )}
+        </div>
       </div>
-    </div>
+    )
   );
-}
+};
+
+export default CreatePost;
