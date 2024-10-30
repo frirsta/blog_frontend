@@ -15,7 +15,7 @@ export default function PasswordReset() {
       successMessage="If an account with that email exists, you will receive a password reset email shortly."
     >
       {({ handleSubmit }) => (
-        <div className="min-h-screen flex items-center justify-center">
+        <div className="min-h-screen flex items-start justify-center">
           <motion.div
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}

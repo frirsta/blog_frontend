@@ -1,10 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { FaSun, FaMoon } from "react-icons/fa";
+import { themeChange } from "theme-change";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
-import { themeChange } from "theme-change";
 import { useAuth } from "@/context/AuthContext";
 import CreatePost from "./post/CreatePost";
 
@@ -43,7 +43,7 @@ const NavBar = () => {
       <div className="navbar bg-base-100 text-base-content">
         <div className="flex-1">
           <Link href={"/"} className="btn btn-ghost text-xl">
-            daisyUI
+            The Blog
           </Link>
         </div>
         <div className="flex-none gap-2">
@@ -82,7 +82,7 @@ const NavBar = () => {
                   <Link href={"/profile"}>Profile</Link>
                 </li>
                 <li>
-                  <Link href={"/profile"}>Settings</Link>
+                  <Link href={"/settings"}>Settings</Link>
                 </li>
                 <li>
                   <button className="text-left" onClick={handleLogout}>

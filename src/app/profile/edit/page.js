@@ -144,11 +144,13 @@ export default function page() {
             </div>
           </div>
         </div>
-        <ProfileDetailsForm
-          profileData={profileData}
-          handleProfileDetailsChange={handleProfileDetailsChange}
-          handleSubmit={(e) => handleSubmit(e)}
-        />
+        <div className="py-24">
+          <ProfileDetailsForm
+            profileData={profileData}
+            handleProfileDetailsChange={handleProfileDetailsChange}
+            handleSubmit={(e) => handleSubmit(e)}
+          />
+        </div>
       </div>
     </div>
   );

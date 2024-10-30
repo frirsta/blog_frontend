@@ -14,7 +14,7 @@ export default function ProfileDetailsForm({
   handleProfileDetailsChange,
 }) {
   return (
-    <div className="card w-full max-w-md bg-base-100 shadow-xl z-10 m-auto mt-32">
+    <div className="card w-full max-w-md bg-base-100 shadow-xl z-10 m-auto">
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -36,7 +36,7 @@ export default function ProfileDetailsForm({
               />
 
               <div>
-                <label htmlFor="location">Location</label>
+                <span>Location</span>
                 <div className="mt-1">
                   <Select
                     options={countries}
