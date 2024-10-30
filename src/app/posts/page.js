@@ -36,7 +36,11 @@ function PostsPage() {
         {loading ? (
           <PostSkeleton />
         ) : (
-          posts.map((post) => <Post key={post.id} post={post} />)
+          <div className="mx-auto mt-12 grid max-w-lg gap-5 lg:max-w-xl lg:grid-cols-1">
+            {posts.map((post) => (
+              <Post key={post.id} post={post} />
+            ))}
+          </div>
         )}
       </ul>
     </div>

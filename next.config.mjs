@@ -17,6 +17,11 @@ const nextConfig = {
         hostname: "res.cloudinary.com",
         pathname: "/ddms7cvqu/image/upload/**",
       },
+      {
+        protocol: "http",
+        hostname: "res.cloudinary.com",
+        pathname: "/ddms7cvqu/image/upload/**",
+      },
     ],
   },
   transpilePackages: ["@pqina/pintura", "@pqina/react-pintura"],
