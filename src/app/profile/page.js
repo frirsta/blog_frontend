@@ -1,12 +1,13 @@
 "use client";
+import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { HiDotsVertical } from "react-icons/hi";
 import { useAuth } from "@/context/AuthContext";
-import { useEffect, useState } from "react";
-import api from "@/utils/axiosInstance";
-import Post from "@/components/ui/Post";
-import Link from "next/link";
+import { UserInfo } from "@/components/profile/UserInfo";
 import ProfileStat from "@/components/profile/ProfileStat";
+import Post from "@/components/ui/Post";
+import api from "@/utils/axiosInstance";
 
 export default function ProfilePage() {
   const [posts, setPosts] = useState([]);
@@ -52,17 +53,7 @@ export default function ProfilePage() {
                   height={128}
                 />
               </div>
-              <div className="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
-                <h1 className="text-3xl font-bold text-base-content">
-                  {currentUser?.username}
-                </h1>
-                <p className="text-sm font-medium text-base-content/70">
-                  {currentUser?.username}
-                </p>
-                <p className="text-sm text-base-content/70 mt-1">
-                  {currentUser?.bio}
-                </p>
-              </div>
+              <UserInfo profileData={currentUser} />
             </div>
             {currentUser.is_owner && (
               <div className="mt-5 flex justify-center sm:mt-0 absolute top-0 py-3 pr-8 right-0 sm:relative sm:p-0">
@@ -82,7 +73,7 @@ export default function ProfilePage() {
               </div>
             )}
           </div>
-          <div className="mt-5 grid grid-cols-2 gap-5 sm:grid-cols-4 text-center">
+          <div className="mt-5 grid grid-cols-3 gap-5 text-center">
             <ProfileStat label="Followers" value={100} />
             <ProfileStat label="Following" value={100} />
             <ProfileStat label="Posts" value={posts.length} />
