@@ -12,7 +12,7 @@ export default function BtmNav() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <div>
+    <div className="fixed z-20">
       <div className="btm-nav btm-nav-sm bg-base-200">
         <Link href="/posts">
           <GoHomeFill className="h-[24px] w-[24px]" />
