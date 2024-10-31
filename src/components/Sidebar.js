@@ -120,9 +120,8 @@ export default function Sidebar() {
           className="drawer-overlay"
         ></label>
         <ul className="menu bg-base-200 min-h-full w-80 p-4">
-          <li>
-            <h2 className="justify-center text-2xl font-bold">Settings</h2>
-          </li>
+          <h2 className="text-center text-2xl font-bold py-2">Settings</h2>
+
           <div className="divider"></div>
           <li>
             <a onClick={() => handleMenuClick("edit-profile")}>
