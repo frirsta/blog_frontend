@@ -86,7 +86,7 @@ const NavBar = () => {
                 </li>
                 <li>
                   <button className="text-left" onClick={handleLogout}>
-                    logout
+                    Log out
                   </button>
                 </li>
               </ul>

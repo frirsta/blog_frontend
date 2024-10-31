@@ -144,7 +144,7 @@ export default function page() {
             </div>
           </div>
         </div>
-        <div className="py-24">
+        <div className="py-10">
           <ProfileDetailsForm
             profileData={profileData}
             handleProfileDetailsChange={handleProfileDetailsChange}

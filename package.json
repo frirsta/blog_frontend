@@ -13,6 +13,7 @@
     "@eslint/object-schema": "^2.1.4",
     "@pqina/pintura": "^8.89.2",
     "@pqina/react-pintura": "^9.0.3",
+    "@tailwindcss/typography": "^0.5.15",
     "axios": "^1.7.7",
     "country-list": "^2.3.0",
     "date-fns": "^4.1.0",

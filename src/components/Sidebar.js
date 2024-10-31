@@ -1,6 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import { CiMenuFries } from "react-icons/ci";
+import { FaUser } from "react-icons/fa";
+import { FaLock } from "react-icons/fa";
+import { BsShieldFillCheck } from "react-icons/bs";
 import { useAuth } from "@/context/AuthContext";
 import { useMessage } from "@/context/MessageContext";
 import ChangePassword from "@/app/change-password/page";
@@ -86,8 +89,14 @@ export default function Sidebar() {
           <CiMenuFries />
         </label>
         <div className="z-0">
-          <h2 className="text-2xl font-bold text-center">Settings</h2>
-          <div className="py-14">{renderContent()}</div>
+          <h2 className="card-title text-3xl font-extrabold justify-center">
+            {selectedItem === "edit-profile"
+              ? "Edit Profile"
+              : selectedItem === "change-password"
+              ? "Change Password"
+              : "Reset Password"}
+          </h2>
+          <div className="px-3 m-auto">{renderContent()}</div>
         </div>
       </div>
 
@@ -99,17 +108,23 @@ export default function Sidebar() {
         ></label>
         <ul className="menu bg-base-200 min-h-full w-80 p-4">
           <li>
+            <h2 className="justify-center text-2xl font-bold">Settings</h2>
+          </li>
+          <div className="divider"></div>
+          <li>
+            <a onClick={() => handleMenuClick("edit-profile")}>
+              <FaUser /> Edit Profile
+            </a>
+          </li>
+          <li>
             <a onClick={() => handleMenuClick("change-password")}>
-              Change Password
+              <FaLock /> Change Password
             </a>
           </li>
           <li>
             <a onClick={() => handleMenuClick("reset-password")}>
-              Reset Password
+              <BsShieldFillCheck /> Reset Password
             </a>
-          </li>
-          <li>
-            <a onClick={() => handleMenuClick("edit-profile")}>Edit Profile</a>
           </li>
         </ul>
       </div>

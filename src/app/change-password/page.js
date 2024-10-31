@@ -20,7 +20,7 @@ export default function ChangePassword() {
       }}
     >
       {({ handleSubmit }) => (
-        <div className="min-h-screen flex items-start justify-center">
+        <div className="py-20 flex items-start justify-center">
           <motion.div
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
