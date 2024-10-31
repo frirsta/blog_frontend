@@ -1,7 +1,13 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { format } from "date-fns";
+import { useAuth } from "@/context/AuthContext";
+import { useMessage } from "@/context/MessageContext";
+import api from "@/utils/axiosInstance";
+import Menu from "../post/Menu";
+import ConfirmationModal from "../post/ConfirmationModal";
 
 const calculateReadingTime = (text) => {
   const wordsPerMinute = 200;
@@ -16,7 +22,11 @@ const getImageUrl = (imagePath) => {
     ? imagePath
     : `https://res.cloudinary.com/ddms7cvqu/${imagePath}`;
 };
-const Post = ({ post }) => {
+const Post = ({ post, onDelete }) => {
+  const { currentUser } = useAuth();
+  const [error, setError] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { showMessage } = useMessage();
   const formattedDate = format(new Date(post.created_at), "MMM dd, yyyy");
   const readingTime = calculateReadingTime(post.content);
   const maxContentLength = 100;
@@ -24,6 +34,17 @@ const Post = ({ post }) => {
   const postImageSrc = getImageUrl(post.image);
   const authorImageSrc = getImageUrl(post.profile_picture);
 
+  const handleDelete = async () => {
+    try {
+      await api.delete(`posts/${post.id}/`);
+      onDelete(post.id);
+    } catch (error) {
+      console.error("Failed to delete the post:", error);
+      setError(error.response?.data);
+      console.log(error.response?.data);
+      showMessage("error", "Failed to delete the post");
+    }
+  };
   return (
     <div className={`flex flex-col overflow-hidden rounded-lg shadow-lg`}>
       <div className="flex-shrink-0">
@@ -84,6 +105,19 @@ const Post = ({ post }) => {
               <span aria-hidden="true">·</span>
               <span>{readingTime} min read</span>
             </div>
+            {currentUser && currentUser.id === post.author && (
+              <>
+                <Menu onDelete={() => setIsModalOpen(true)} />
+                <ConfirmationModal
+                  isOpen={isModalOpen}
+                  onClose={() => setIsModalOpen(false)}
+                  onConfirm={() => {
+                    handleDelete();
+                    setIsModalOpen(false);
+                  }}
+                />
+              </>
+            )}
           </div>
         </div>
       </div>

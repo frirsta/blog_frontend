@@ -28,6 +28,11 @@ function PostsPage() {
 
     fetchPosts();
   }, []);
+
+  const handleDelete = (postId) => {
+    setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
+  };
+
   console.log(posts);
   return (
     <div>
@@ -38,7 +43,7 @@ function PostsPage() {
         ) : (
           <div className="mx-auto mt-12 grid max-w-lg gap-5 lg:max-w-xl lg:grid-cols-1">
             {posts.map((post) => (
-              <Post key={post.id} post={post} />
+              <Post key={post.id} post={post} onDelete={handleDelete} />
             ))}
           </div>
         )}
