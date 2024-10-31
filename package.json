@@ -20,6 +20,7 @@
     "dompurify": "^3.1.7",
     "framer-motion": "^11.11.6",
     "glob": "^11.0.0",
+    "hamburger-react": "^2.5.1",
     "jodit-react": "^4.1.2",
     "lru-cache": "^11.0.1",
     "next": "^15.0.2",

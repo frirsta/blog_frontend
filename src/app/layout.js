@@ -1,6 +1,6 @@
 import "./globals.css";
-import Navbar from "@/components/NavBar";
 import AuthGate from "@/components/AuthGate";
+import BtmNav from "@/components/BtmNav";
 import Notification from "@/components/ui/Notification";
 import { AuthProvider } from "@/context/AuthContext";
 import { MessageProvider } from "@/context/MessageContext";
@@ -16,9 +16,9 @@ export default function RootLayout({ children }) {
       <body>
         <AuthProvider>
           <MessageProvider>
-            <Navbar />
             <Notification />
             <AuthGate>{children}</AuthGate>
+            <BtmNav />
           </MessageProvider>
         </AuthProvider>
       </body>
