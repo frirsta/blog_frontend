@@ -6,7 +6,7 @@ const WarningModal = ({ onCancel, onConfirm }) => {
       <div className="p-6 bg-base-100 rounded-lg shadow-lg max-w-sm w-full">
         <p className="text-lg font-semibold mb-4">Discard post?</p>
         <p className="text-gray-600 mb-6">
-          If you leave, your edits won't be saved.
+          If you leave, your edits won&apos;t be saved.
         </p>
         <div className="flex justify-end gap-4">
           <button className="btn btn-outline" onClick={onCancel}>

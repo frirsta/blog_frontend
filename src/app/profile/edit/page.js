@@ -7,7 +7,7 @@ import { UserInfo } from "@/components/profile/UserInfo";
 import ProfileDetailsForm from "@/components/form/ProfileDetailsForm";
 import api from "@/utils/axiosInstance";
 
-export default function page() {
+export default function EditProfilePage() {
   const { currentUser } = useAuth();
   const { showMessage } = useMessage();
 
