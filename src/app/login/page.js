@@ -16,7 +16,7 @@ function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="min-h-screen flex flex-col items-center justify-center">
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -42,7 +42,7 @@ function LoginPage() {
               <span>{loginError}</span>
             </div>
           )}
-          <div className="mt-6  mb-6">
+          <div className="mt-6 mb-6">
             <h2 className="card-title text-3xl font-extrabold">Welcome!</h2>
             <p className="text-base-content text-opacity-70">
               Sign in to your account
@@ -77,7 +77,6 @@ function LoginPage() {
                 aria-label="Password"
               />
             </div>
-
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -87,13 +86,26 @@ function LoginPage() {
               Login
             </motion.button>
           </form>
-          <div className="divider text-base-content text-opacity-70">
-            Don&apos;t have an account?
-          </div>
 
-          <Link href="/signup" className="w-fit m-auto text-primary">
-            Sign Up
+          <div className="divider text-base-content text-opacity-70">OR</div>
+          <Link href="/password-reset" className="w-fit m-auto text-primary">
+            Forgotten your password?
           </Link>
+        </div>
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="card w-full max-w-md bg-base-100 shadow-xl z-10 mt-3"
+      >
+        <div className="card-body p-8">
+          <div className="text-base-content text-opacity-70 text-center">
+            Don&apos;t have an account?&nbsp;
+            <Link href="/signup" className="w-fit m-auto text-primary">
+              Sign Up
+            </Link>
+          </div>
         </div>
       </motion.div>
     </div>
