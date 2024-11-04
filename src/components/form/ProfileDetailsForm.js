@@ -1,7 +1,8 @@
-import React from "react";
 import Select from "react-select";
 import { getNames } from "country-list";
 import { motion } from "framer-motion";
+import { useMessage } from "@/context/MessageContext";
+import api from "@/utils/axiosInstance";
 
 const countries = getNames().map((country) => ({
   value: country,
@@ -10,11 +11,43 @@ const countries = getNames().map((country) => ({
 
 export default function ProfileDetailsForm({
   profileData,
-  handleSubmit,
-  handleProfileDetailsChange,
+  setProfileData,
+  id,
 }) {
+  const { showMessage } = useMessage();
+
+  const handleProfileDetailsChange = (e) => {
+    const { name, value } = e.target;
+    setProfileData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = {
+      bio: profileData.bio,
+      location: profileData.location,
+      website: profileData.website,
+    };
+
+    try {
+      const response = await api.patch(`profiles/${id}/`, formData);
+      showMessage("success", "Profile details updated successfully");
+      setProfileData((prevData) => ({
+        ...prevData,
+        ...response.data,
+      }));
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.detail || "Failed to update profile details";
+      showMessage("error", errorMessage);
+    }
+  };
   return (
-    <div className="my-20 card w-full max-w-md bg-base-100 shadow-xl z-10 m-auto">
+    <div className="card w-full max-w-md bg-base-100 shadow-xl z-10 m-auto">
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -29,7 +62,7 @@ export default function ProfileDetailsForm({
                 id="bio"
                 name="bio"
                 rows="3"
-                value={profileData.bio}
+                value={profileData.bio || ""}
                 onChange={handleProfileDetailsChange}
                 className="textarea textarea-bordered"
                 placeholder="Write a little about yourself"
@@ -62,7 +95,7 @@ export default function ProfileDetailsForm({
                   type="url"
                   id="website"
                   name="website"
-                  value={profileData.website}
+                  value={profileData.website || ""}
                   onChange={handleProfileDetailsChange}
                   className="input input-bordered w-full"
                   placeholder="Enter your website URL"
