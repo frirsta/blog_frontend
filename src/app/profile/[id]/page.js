@@ -8,6 +8,7 @@ import { UserInfo } from "@/components/profile/UserInfo";
 import ProfileStat from "@/components/profile/ProfileStat";
 import FollowButton from "@/components/follows/FollowButton";
 import FollowingList from "@/components/follows/FollowingList";
+import FollowersList from "@/components/follows/FollowersList";
 import CoverImage from "@/components/profile/CoverImage";
 import Menu from "@/components/profile/Menu";
 import Post from "@/components/ui/Post";
@@ -55,7 +56,7 @@ export default function ProfilePage() {
   if (error) {
     return <p>{error}</p>;
   }
-
+  console.log(profileData);
   return (
     <div>
       <div className="relative">
@@ -81,17 +82,20 @@ export default function ProfilePage() {
             {isCurrentUser ? (
               <Menu onLogout={handleLogout} />
             ) : (
-              <FollowButton userId={id} profileData={profileData} />
+              <FollowButton
+                userId={profileData?.id}
+                isFollowing={profileData?.is_following}
+                followId={profileData?.following_id}
+              />
             )}
           </div>
           <div className="mt-5 grid grid-cols-3 gap-5 text-center">
-            <ProfileStat
-              label="Followers"
-              value={profileData?.followers_count || 0}
-              onClick={() => document.getElementById("followers_modal").click()}
+            <FollowersList userId={profileData?.id} />
+            <FollowingList
+              userId={profileData?.id}
+              followId={profileData?.following_id}
+              isFollowing={profileData?.is_following}
             />
-
-            <FollowingList userId={id} />
             <ProfileStat label="Posts" value={posts.length} />
           </div>
         </div>
