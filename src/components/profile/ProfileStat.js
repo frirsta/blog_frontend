@@ -1,8 +1,8 @@
 import React from "react";
 
-export default function ProfileStat({ label, value, onClick }) {
+export default function ProfileStat({ label, value }) {
   return (
-    <div onClick={onClick} className="cursor-pointer">
+    <div>
       <h3 className="text-xl font-bold">{value}</h3>
       <p className="text-sm text-base-content">{label}</p>
     </div>

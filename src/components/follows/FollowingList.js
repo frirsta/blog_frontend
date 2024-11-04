@@ -39,6 +39,7 @@ export default function FollowingList({ userId }) {
 
   return (
     <div
+      className="cursor-pointer"
       onClick={() =>
         document.getElementById("following_list_modal").showModal()
       }

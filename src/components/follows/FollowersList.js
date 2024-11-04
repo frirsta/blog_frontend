@@ -40,6 +40,7 @@ export default function FollowersList({ userId }) {
   console.log(followers);
   return (
     <div
+      className="cursor-pointer"
       onClick={() =>
         document.getElementById("followers_list_modal").showModal()
       }
