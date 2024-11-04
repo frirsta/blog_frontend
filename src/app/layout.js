@@ -1,9 +1,8 @@
 import "./globals.css";
-import AuthGate from "@/components/AuthGate";
-import BtmNav from "@/components/BtmNav";
-import Notification from "@/components/ui/Notification";
-import { AuthProvider } from "@/context/AuthContext";
 import { MessageProvider } from "@/context/MessageContext";
+import { AuthProvider } from "@/context/AuthContext";
+import Notification from "@/components/ui/Notification";
+import BtmNav from "@/components/BtmNav";
 
 export const metadata = {
   title: "My Blog",
@@ -17,7 +16,7 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <MessageProvider>
             <Notification />
-            <AuthGate>{children}</AuthGate>
+            {children}
             <BtmNav />
           </MessageProvider>
         </AuthProvider>
