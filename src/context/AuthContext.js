@@ -14,23 +14,22 @@ import {
   saveTokens,
 } from "../services/tokenService";
 import { refreshAccessToken } from "../utils/refreshToken";
-import api from "../utils/axiosInstance";
+import api, { getCurrentUser } from "../utils/axiosInstance";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
   const [loginError, setLoginError] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
 
   const router = useRouter();
+
   const handleLogin = async (username, password) => {
     try {
       const response = await api.post("api/token/", { username, password });
       saveTokens(response.data.access, response.data.refresh);
-      setIsLoggedIn(true);
-      await fetchCurrentUser();
+      await initializeAuth();
       router.push("/");
     } catch (err) {
       setLoginError(err?.response?.data?.detail);
@@ -40,47 +39,46 @@ export const AuthProvider = ({ children }) => {
 
   const handleLogout = useCallback(() => {
     clearTokens();
-    setIsLoggedIn(false);
     setCurrentUser(null);
     setLoginError(null);
     router.push("/login");
   }, [router]);
 
-  const fetchCurrentUser = useCallback(async () => {
-    try {
-      const response = await api.get("profiles/");
-      setCurrentUser(response.data);
-    } catch (err) {
-      console.error("Failed to fetch current user:", err);
-      handleLogout();
+  const initializeAuth = useCallback(async () => {
+    const token = getAccessToken();
+    if (token) {
+      try {
+        const refreshedToken = await refreshAccessToken();
+        if (refreshedToken) {
+          const userData = await getCurrentUser();
+          setCurrentUser(userData);
+        } else {
+          handleLogout();
+        }
+      } catch (error) {
+        console.error("Failed to initialize auth:", error);
+        handleLogout();
+      }
+    } else {
+      setCurrentUser(null);
     }
+    setLoading(false);
   }, [handleLogout]);
 
   useEffect(() => {
-    const checkToken = async () => {
-      const token = getAccessToken();
-      if (token) {
-        setIsLoggedIn(true);
-        await refreshAccessToken();
-        await fetchCurrentUser();
-      } else {
-        setIsLoggedIn(false);
-      }
-      setLoading(false);
-    };
-
-    checkToken();
-  }, [fetchCurrentUser]);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+    initializeAuth();
+  }, [initializeAuth]);
 
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn, handleLogout, handleLogin, loginError, currentUser }}
+      value={{
+        handleLogout,
+        handleLogin,
+        loginError,
+        currentUser,
+      }}
     >
-      {children}
+      {!loading && children}
     </AuthContext.Provider>
   );
 };

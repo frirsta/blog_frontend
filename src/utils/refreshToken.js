@@ -1,12 +1,11 @@
-import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 import {
   getRefreshToken,
   saveTokens,
   clearTokens,
+  getAccessToken,
 } from "../services/tokenService";
-
-const API_URL =
-  "https://frirsta-blog-53010ec1265c.herokuapp.com/api/token/refresh/";
+import api from "./axiosInstance";
 
 export const refreshAccessToken = async () => {
   const refreshToken = getRefreshToken();
@@ -18,13 +17,20 @@ export const refreshAccessToken = async () => {
   }
 
   try {
-    const response = await axios.post(API_URL, { refresh: refreshToken });
-    const { access, refresh } = response.data;
+    const decodedToken = jwtDecode(refreshToken);
+    const currentTime = Math.floor(Date.now() / 1000);
+    if (decodedToken.exp - currentTime < 60) {
+      const response = await api.post("api/token/refresh/", {
+        refresh: refreshToken,
+      });
+      const { access, refresh } = response.data;
 
-    console.log("Tokens received:", { access, refresh });
+      console.log("Tokens received:", { access, refresh });
 
-    saveTokens(access, refresh);
-    return access;
+      saveTokens(access, refresh);
+      return access;
+    }
+    return getAccessToken();
   } catch (error) {
     console.error(
       "Error refreshing token:",
@@ -33,9 +39,8 @@ export const refreshAccessToken = async () => {
 
     if (error.response && error.response.status === 401) {
       clearTokens();
-      // window.location.href = "/login";
     }
 
-    throw new Error("Token refresh failed");
+    return null;
   }
 };

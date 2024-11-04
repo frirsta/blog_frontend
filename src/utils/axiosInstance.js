@@ -27,14 +27,29 @@ api.interceptors.response.use(
       !originalRequest._retry
     ) {
       originalRequest._retry = true;
-      const newToken = await refreshAccessToken();
-      if (newToken) {
-        originalRequest.headers["Authorization"] = `Bearer ${newToken}`;
-        return api(originalRequest);
+      try {
+        const newToken = await refreshAccessToken();
+        if (newToken) {
+          originalRequest.headers["Authorization"] = `Bearer ${newToken}`;
+          return api(originalRequest);
+        }
+      } catch (error) {
+        console.error("Token refresh failed", error);
+        return Promise.reject(error);
       }
     }
     return Promise.reject(error);
   }
 );
+
+export const getCurrentUser = async () => {
+  try {
+    const response = await api.get("current-user/");
+    return response.data;
+  } catch (error) {
+    console.error("Failed to fetch current user:", error);
+    throw error;
+  }
+};
 
 export default api;
