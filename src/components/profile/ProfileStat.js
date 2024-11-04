@@ -1,12 +1,10 @@
 import React from "react";
 
-export default function ProfileStat({ label, value }) {
+export default function ProfileStat({ label, value, onClick }) {
   return (
-    <div>
-      <div className="bg-base-200 rounded-box p-3">
-        <span className="text-2xl font-bold text-primary">{value}</span>
-        <p className="text-xs font-medium text-base-content/70">{label}</p>
-      </div>
+    <div onClick={onClick} className="cursor-pointer">
+      <h3 className="text-xl font-bold">{value}</h3>
+      <p className="text-sm text-base-content">{label}</p>
     </div>
   );
 }
