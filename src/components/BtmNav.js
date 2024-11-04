@@ -2,11 +2,11 @@
 import React, { useState } from "react";
 import { GoHomeFill } from "react-icons/go";
 import { IoIosAddCircle } from "react-icons/io";
+import { FaSearch } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import CreatePost from "./post/CreatePost";
-import { FaSearch } from "react-icons/fa";
 export default function BtmNav() {
   const { handleLogout, currentUser } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
