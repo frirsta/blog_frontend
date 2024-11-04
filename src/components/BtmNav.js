@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import CreatePost from "./post/CreatePost";
-
+import { FaSearch } from "react-icons/fa";
 export default function BtmNav() {
   const { handleLogout, currentUser } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,6 +17,9 @@ export default function BtmNav() {
           <div className="btm-nav btm-nav-sm bg-base-200">
             <Link href="/posts">
               <GoHomeFill className="h-[24px] w-[24px]" />
+            </Link>
+            <Link href="/search">
+              <FaSearch className="h-[22px] w-[22px]" />
             </Link>
             <button onClick={() => setIsModalOpen(true)}>
               <IoIosAddCircle className="h-[24px] w-[24px]" />
