@@ -83,6 +83,8 @@ export default function Sidebar() {
               ? "Edit Profile"
               : selectedItem === "change-password"
               ? "Change Password"
+              : selectedItem === "delete-account"
+              ? "Account Settings"
               : "Reset Password"}
           </h2>
           <div className="p-3 m-auto">{renderContent()}</div>

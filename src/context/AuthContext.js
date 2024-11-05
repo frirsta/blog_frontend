@@ -63,7 +63,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     checkToken();
-  }, [fetchCurrentUser]);
+  }, [fetchCurrentUser, router]);
 
   return (
     <AuthContext.Provider

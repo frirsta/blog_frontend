@@ -96,28 +96,30 @@ const CommentsList = ({ postId }) => {
                     </p>
                   </div>
                 </Link>
-                <div className="dropdown dropdown-top dropdown-end">
-                  <div
-                    tabIndex={0}
-                    role="button"
-                    className="btn btn-ghost btn-sm"
-                  >
-                    <BsThreeDots />
+                {comment.is_owner && (
+                  <div className="dropdown dropdown-top dropdown-end">
+                    <div
+                      tabIndex={0}
+                      role="button"
+                      className="btn btn-ghost btn-sm"
+                    >
+                      <BsThreeDots />
+                    </div>
+                    <ul
+                      tabIndex={0}
+                      className="dropdown-content menu bg-base-100 rounded z-[1] w-36 p-0 shadow"
+                    >
+                      <li>
+                        <button
+                          className="btn btn-ghost rounded"
+                          onClick={() => openDeleteModal(comment.id)}
+                        >
+                          <MdDelete /> Remove
+                        </button>
+                      </li>
+                    </ul>
                   </div>
-                  <ul
-                    tabIndex={0}
-                    className="dropdown-content menu bg-base-100 rounded z-[1] w-36 p-0 shadow"
-                  >
-                    <li>
-                      <button
-                        className="btn btn-ghost"
-                        onClick={() => openDeleteModal(comment.id)}
-                      >
-                        <MdDelete /> Remove
-                      </button>
-                    </li>
-                  </ul>
-                </div>
+                )}
               </div>
               <p className="text-sm p-1">{comment.content}</p>
             </li>
