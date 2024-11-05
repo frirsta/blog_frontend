@@ -38,7 +38,9 @@ export default function ProfilePage() {
 
     const fetchPosts = async () => {
       try {
-        const response = await api.get(`posts/user/${id}/`);
+        const response = await api.get(
+          `posts/?likes__user__profile=&author__profile=${id}`
+        );
         setPosts(response.data);
       } catch (error) {
         console.error(error);

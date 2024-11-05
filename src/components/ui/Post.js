@@ -8,6 +8,7 @@ import { useMessage } from "@/context/MessageContext";
 import api from "@/utils/axiosInstance";
 import Menu from "../post/Menu";
 import ConfirmationModal from "../post/ConfirmationModal";
+import LikeButton from "../post/LikeButton";
 
 const calculateReadingTime = (text) => {
   const wordsPerMinute = 200;
@@ -58,11 +59,20 @@ const Post = ({ post, onDelete }) => {
       </div>
       <div className="flex flex-1 flex-col justify-between p-6">
         <div className="flex-1">
-          <p className="text-sm font-medium text-info">
-            <Link href={`/posts/${post.id}`} className="hover:underline">
-              Article
-            </Link>
-          </p>
+          <div className="flex justify-between items-center">
+            <p className="text-sm font-medium text-info">
+              <Link href={`/posts/${post.id}`} className="hover:underline">
+                Article
+              </Link>
+            </p>
+
+            <LikeButton
+              postId={post.id}
+              isLiked={post.likes_id !== null}
+              likesId={post.likes_id}
+              likesCount={post.likes_count}
+            />
+          </div>
           <Link href={`/posts/${post.id}`} className="mt-2 block">
             <p className="text-xl font-semibold ">{post.title}</p>
             <div className="prose">

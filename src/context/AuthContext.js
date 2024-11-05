@@ -14,7 +14,7 @@ import {
   saveTokens,
 } from "../services/tokenService";
 import { refreshAccessToken } from "../utils/refreshToken";
-import api, { getCurrentUser } from "../utils/axiosInstance";
+import api from "../utils/axiosInstance";
 
 const AuthContext = createContext();
 
@@ -23,13 +23,11 @@ export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
 
   const router = useRouter();
-
   const handleLogin = async (username, password) => {
     try {
       const response = await api.post("api/token/", { username, password });
       saveTokens(response.data.access, response.data.refresh);
-      const userData = await getCurrentUser();
-      setCurrentUser(userData);
+      await fetchCurrentUser();
       router.push("/");
     } catch (err) {
       setLoginError(err?.response?.data?.detail);
@@ -44,29 +42,32 @@ export const AuthProvider = ({ children }) => {
     router.push("/login");
   }, [router]);
 
+  const fetchCurrentUser = useCallback(async () => {
+    try {
+      const response = await api.get("current-user/");
+      setCurrentUser(response.data);
+    } catch (err) {
+      console.error("Failed to fetch current user:", err);
+      handleLogout();
+    }
+  }, [handleLogout]);
+
   useEffect(() => {
     const checkToken = async () => {
       const token = getAccessToken();
       if (token) {
         await refreshAccessToken();
-        const userData = await getCurrentUser();
-        setCurrentUser(userData);
+        await fetchCurrentUser();
       } else {
-        handleLogout();
       }
     };
 
     checkToken();
-  }, [getCurrentUser]);
+  }, [fetchCurrentUser]);
 
   return (
     <AuthContext.Provider
-      value={{
-        handleLogout,
-        handleLogin,
-        loginError,
-        currentUser,
-      }}
+      value={{ handleLogout, handleLogin, loginError, currentUser }}
     >
       {children}
     </AuthContext.Provider>

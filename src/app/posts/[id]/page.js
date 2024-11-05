@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import api from "@/utils/axiosInstance";
 import { format } from "date-fns";
+import LikeButton from "@/components/post/LikeButton";
 
 const calculateReadingTime = (text) => {
   const wordsPerMinute = 200;
@@ -56,12 +57,12 @@ export default function PostDetails({ params }) {
     new Date(post?.updated_at),
     "MMM dd, yyyy"
   );
-  const readingTime = calculateReadingTime(post.content);
+  const readingTime = calculateReadingTime(post?.content);
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
         <div className="py-8">
-          <h1 className="text-3xl font-bold mb-2 capitalize">{post.title}</h1>
+          <h1 className="text-3xl font-bold mb-2 capitalize">{post?.title}</h1>
           <p className="text-gray-500 text-sm">
             Published on <time>{formattedCreatedDate}</time>
           </p>
@@ -71,24 +72,32 @@ export default function PostDetails({ params }) {
           width={1000}
           height={1000}
           src={postImageSrc}
-          alt={post.title}
+          alt={post?.title}
           className="aspect-video mb-8 border-white border-[1px]"
         />
 
-        <div className="mb-8 flex flex-col">
-          <div className="flex items-center">
-            <Link href={`/profiles/${post.author}`}>
-              <Image
-                width={10}
-                height={10}
-                className="w-10 h-10 rounded-full mr-2"
-                src={authorImageSrc}
-                alt={`Avatar of ${post.owner}`}
-              />
-            </Link>
-            <p className="text-sm font-medium text-gray-500">
-              <Link href={`/profiles/${post.author}`}>{post.owner}</Link>
-            </p>
+        <div className="mb-8 flex flex-col mx-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              <Link href={`/profiles/${post?.author}`}>
+                <Image
+                  width={10}
+                  height={10}
+                  className="w-10 h-10 rounded-full mr-2"
+                  src={authorImageSrc}
+                  alt={`Avatar of ${post?.owner}`}
+                />
+              </Link>
+              <p className="text-sm font-medium text-gray-500">
+                <Link href={`/profiles/${post?.author}`}>{post?.owner}</Link>
+              </p>
+            </div>
+            <LikeButton
+              postId={post?.id}
+              likesCount={post?.likes_count}
+              likesId={post?.likes_id}
+              isLiked={post?.likes_id !== null}
+            />
           </div>
           <div className="flex">
             <p className="mt-3 text-sm font-medium text-gray-500">
@@ -98,14 +107,15 @@ export default function PostDetails({ params }) {
               {readingTime} min read
             </p>
           </div>
-        </div>
-        <div className="prose prose-sm sm:prose lg:prose-lg xl:prose-xl mx-auto">
-          <div
-            className="mt-3 text-opacity-80 text-base-content"
-            dangerouslySetInnerHTML={{
-              __html: post.content,
-            }}
-          />
+
+          <div className="prose prose-sm sm:prose lg:prose-lg xl:prose-xl">
+            <div
+              className="text-left mt-3 text-opacity-80 text-base-content w-full"
+              dangerouslySetInnerHTML={{
+                __html: post?.content,
+              }}
+            />
+          </div>
         </div>
       </div>
     </div>
