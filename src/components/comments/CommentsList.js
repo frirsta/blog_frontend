@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { BsThreeDots } from "react-icons/bs";
 import { MdDelete } from "react-icons/md";
-import { useMessage } from "@/context/MessageContext";
 import { deleteComment } from "@/utils/commentService";
 import api from "@/utils/axiosInstance";
 import ConfirmationModal from "../ui/ConfirmationModal";
@@ -12,7 +11,6 @@ const CommentsList = ({ postId }) => {
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [commentToDelete, setCommentToDelete] = useState(null);
-  const { showMessage } = useMessage();
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -44,12 +42,29 @@ const CommentsList = ({ postId }) => {
             comments.filter((comment) => comment.id !== commentToDelete)
           );
           setIsModalOpen(false);
-          showMessage("success", "Comment deleted successfully.");
         },
         (error) => {
           console.error("Failed to delete comment:", error);
           setIsModalOpen(false);
-          showMessage("error", "Failed to delete comment. Please try again.");
+          if (error.response) {
+            switch (error.response.status) {
+              case 403:
+                alert("You do not have permission to delete this comment.");
+                break;
+              case 404:
+                alert("Comment not found. It might have already been deleted.");
+                break;
+              case 500:
+                alert("Server error occurred. Please try again later.");
+                break;
+              default:
+                alert("Failed to delete comment. Please try again.");
+            }
+          } else {
+            alert(
+              "Failed to delete comment. Please check your network connection."
+            );
+          }
         }
       );
     }

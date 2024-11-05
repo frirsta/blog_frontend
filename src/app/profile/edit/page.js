@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useMessage } from "@/context/MessageContext";
 import { PictureForm } from "@/components/form/PictureForm";
@@ -74,7 +74,16 @@ export default function EditProfilePage() {
       }
     }
   };
-
+  useEffect(() => {
+    setProfileData({
+      profile_picture: currentUser?.profile_picture,
+      cover_picture: currentUser?.cover_picture,
+      bio: currentUser?.bio || "",
+      location: currentUser?.location || "",
+      website: currentUser?.website || "",
+      username: currentUser?.username || "",
+    });
+  }, [currentUser, setProfileData]);
   return (
     <div className="min-h-screen bg-base-200">
       <PictureForm
@@ -93,7 +102,9 @@ export default function EditProfilePage() {
             "cover"
           )
         }
-        defaultPicture="/cover_default.png"
+        defaultPicture={
+          currentUser?.cover_picture || "/cover_picture_default.png"
+        }
         label="Cover Picture"
       />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-20 relative">
@@ -116,7 +127,9 @@ export default function EditProfilePage() {
                     "profile"
                   )
                 }
-                defaultPicture="/default_profile.png"
+                defaultPicture={
+                  currentUser?.profile_picture || "/profile_default.png"
+                }
                 label="Profile Picture"
               />
             </div>
@@ -128,7 +141,6 @@ export default function EditProfilePage() {
           <ProfileDetailsForm
             profileData={profileData}
             setProfileData={setProfileData}
-            id={currentUser?.id}
           />
         </div>
       </div>

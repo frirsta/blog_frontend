@@ -1,19 +1,11 @@
 import api from "@/utils/axiosInstance";
 
-export const deleteComment = async (
-  commentId,
-  onDeleteSuccess,
-  onDeleteFailure
-) => {
+export const deleteComment = async (commentId, onSuccess, onError) => {
   try {
-    await api.delete(`/comments/${commentId}/`);
-    if (onDeleteSuccess) {
-      onDeleteSuccess();
-    }
+    const response = await api.delete(`/comments/${commentId}/`);
+    onSuccess(response);
   } catch (error) {
     console.error("Failed to delete comment:", error);
-    if (onDeleteFailure) {
-      onDeleteFailure(error);
-    }
+    if (onError) onError(error);
   }
 };

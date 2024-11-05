@@ -1,23 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import FormHandler from "@/components/form/FormHandler";
 
 export default function ChangePassword() {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const router = useRouter();
 
   return (
     <FormHandler
       endpoint="profiles/change-password/"
       data={{ old_password: oldPassword, new_password: newPassword }}
       successMessage="Password has been updated successfully."
-      onSuccess={() => {
-        router.push("/profile");
-      }}
     >
       {({ handleSubmit }) => (
         <div className="py-20 flex items-start justify-center">

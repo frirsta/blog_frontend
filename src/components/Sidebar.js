@@ -3,29 +3,26 @@ import React, { useEffect, useState } from "react";
 import { Squash as Hamburger } from "hamburger-react";
 import { FaMoon, FaSun, FaUser, FaLock } from "react-icons/fa";
 import { BsShieldFillCheck } from "react-icons/bs";
+import { FaUserXmark } from "react-icons/fa6";
 import { themeChange } from "theme-change";
 import { useAuth } from "@/context/AuthContext";
-import { useMessage } from "@/context/MessageContext";
 import ChangePassword from "@/app/change-password/page";
 import PasswordReset from "@/app/password-reset/page";
-import api from "@/utils/axiosInstance";
 import ProfileDetailsForm from "./form/ProfileDetailsForm";
+import DeleteAccount from "./profile/DeleteAccount";
 
 export default function Sidebar() {
-  const { showMessage } = useMessage();
   const { currentUser } = useAuth();
   const [currentTheme, setCurrentTheme] = useState("valentine");
   const [selectedItem, setSelectedItem] = useState("edit-profile");
   const [profileData, setProfileData] = useState({
+    profile_picture: currentUser?.profile_picture,
+    cover_picture: currentUser?.cover_picture,
     bio: currentUser?.bio || "",
     location: currentUser?.location || "",
     website: currentUser?.website || "",
+    username: currentUser?.username || "",
   });
-
-  const handleProfileDetailsChange = (e) => {
-    const { name, value } = e.target;
-    setProfileData((prevData) => ({ ...prevData, [name]: value }));
-  };
 
   useEffect(() => {
     themeChange(false);
@@ -41,44 +38,21 @@ export default function Sidebar() {
     localStorage.setItem("theme", newTheme);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("bio", profileData.bio);
-    formData.append("location", profileData.location);
-    formData.append("website", profileData.website);
-
-    try {
-      const response = await api.patch("profiles/", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-      showMessage("success", "Profile updated successfully");
-      setProfileData((prevData) => ({ ...prevData, ...response.data }));
-      setSelectedItem(null);
-    } catch (error) {
-      const errorMessage =
-        error.response?.data?.website?.[0] ||
-        error.response?.data?.location?.[0] ||
-        error.response?.data?.bio?.[0] ||
-        "An error occurred. Please try again.";
-      showMessage("error", errorMessage);
-    }
-  };
-
   const renderContent = () => {
     switch (selectedItem) {
       case "change-password":
         return <ChangePassword />;
       case "reset-password":
         return <PasswordReset />;
+      case "delete-account":
+        return <DeleteAccount />;
       case "edit-profile":
       default:
         return (
           <div className="py-20">
             <ProfileDetailsForm
               profileData={profileData}
-              handleProfileDetailsChange={handleProfileDetailsChange}
-              handleSubmit={handleSubmit}
+              setProfileData={setProfileData}
             />
           </div>
         );
@@ -121,31 +95,55 @@ export default function Sidebar() {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <ul className="menu bg-base-200 min-h-full w-80 p-4">
-          <h2 className="text-center text-2xl font-bold py-2">Settings</h2>
+        <ul className="menu bg-base-200 min-h-full w-80 p-4 flex flex-col items-baseline">
+          <h2 className="text-center text-2xl font-bold pt-2 w-full">
+            Settings
+          </h2>
 
           <div className="divider"></div>
-          <li>
-            <a onClick={() => handleMenuClick("edit-profile")}>
-              <FaUser /> Edit Profile
+          <li className="w-full">
+            <a
+              className="py-3 px-4 w-full"
+              onClick={() => handleMenuClick("edit-profile")}
+            >
+              <FaUser className="w-6 h-6" /> Edit Profile
             </a>
           </li>
-          <li>
-            <a onClick={() => handleMenuClick("change-password")}>
-              <FaLock /> Change Password
+          <li className="w-full">
+            <a
+              className="py-3 px-4 w-full"
+              onClick={() => handleMenuClick("change-password")}
+            >
+              <FaLock className="w-6 h-6" /> Change Password
             </a>
           </li>
-          <li>
-            <a onClick={() => handleMenuClick("reset-password")}>
-              <BsShieldFillCheck /> Reset Password
+          <li className="w-full">
+            <a
+              className="py-3 px-4 w-full"
+              onClick={() => handleMenuClick("reset-password")}
+            >
+              <BsShieldFillCheck className="w-6 h-6" /> Reset Password
             </a>
           </li>
-          <li>
+          <li className="w-full">
+            <a
+              className="py-3 px-4 w-full"
+              onClick={() => handleMenuClick("delete-account")}
+            >
+              <FaUserXmark className="w-6 h-6" /> Account Settings
+            </a>
+          </li>
+          <li className="w-full">
             <button
               aria-label="Toggle night/valentine theme"
               onClick={handleThemeToggle}
+              className="py-3 px-4 w-full"
             >
-              {currentTheme === "valentine" ? <FaMoon /> : <FaSun />}
+              {currentTheme === "valentine" ? (
+                <FaMoon className="w-6 h-6" />
+              ) : (
+                <FaSun className="w-6 h-6" />
+              )}
               Theme
             </button>
           </li>
