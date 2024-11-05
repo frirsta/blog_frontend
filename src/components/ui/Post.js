@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { FaRegComment } from "react-icons/fa";
 import { format } from "date-fns";
 import { useAuth } from "@/context/AuthContext";
 import { useMessage } from "@/context/MessageContext";
@@ -46,8 +47,11 @@ const Post = ({ post, onDelete }) => {
       showMessage("error", "Failed to delete the post");
     }
   };
+
   return (
-    <div className={`flex flex-col overflow-hidden rounded-lg shadow-lg`}>
+    <div
+      className={`flex flex-col overflow-hidden rounded-lg shadow-lg drop-shadow-2xl`}
+    >
       <div className="flex-shrink-0">
         <Image
           width={1000}
@@ -65,13 +69,20 @@ const Post = ({ post, onDelete }) => {
                 Article
               </Link>
             </p>
-
-            <LikeButton
-              postId={post.id}
-              isLiked={post.likes_id !== null}
-              likesId={post.likes_id}
-              likesCount={post.likes_count}
-            />
+            <div className="flex items-center space-x-5">
+              <Link href={`/posts/${post.id}`}>
+                <div className="flex items-center space-x-2">
+                  <FaRegComment />
+                  &nbsp;<span>{post?.comments_count}</span>
+                </div>
+              </Link>
+              <LikeButton
+                postId={post.id}
+                isLiked={post.likes_id !== null}
+                likesId={post.likes_id}
+                likesCount={post.likes_count}
+              />
+            </div>
           </div>
           <Link href={`/posts/${post.id}`} className="mt-2 block">
             <p className="text-xl font-semibold ">{post.title}</p>

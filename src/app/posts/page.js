@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import api from "../../utils/axiosInstance";
 import Post from "@/components/ui/Post";
 import PostSkeleton from "./loading";
+import api from "../../utils/axiosInstance";
 
 function PostsPage() {
   const [posts, setPosts] = useState([]);
@@ -27,13 +27,12 @@ function PostsPage() {
     };
 
     fetchPosts();
-  }, []);
+  }, [posts]);
 
   const handleDelete = (postId) => {
     setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
   };
 
-  console.log(posts);
   return (
     <div>
       {error && <div className="error-message">{error}</div>}
@@ -41,10 +40,14 @@ function PostsPage() {
         {loading ? (
           <PostSkeleton />
         ) : (
-          <div className="mx-auto mt-12 grid max-w-lg gap-5 lg:max-w-xl lg:grid-cols-1">
-            {posts.map((post) => (
-              <Post key={post.id} post={post} onDelete={handleDelete} />
-            ))}
+          <div className="mx-auto my-20 grid max-w-lg gap-5 lg:max-w-xl lg:grid-cols-1">
+            {posts.length === 0 ? (
+              <p>No posts found.</p>
+            ) : (
+              posts.map((post) => (
+                <Post key={post.id} post={post} onDelete={handleDelete} />
+              ))
+            )}
           </div>
         )}
       </ul>

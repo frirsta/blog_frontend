@@ -28,43 +28,50 @@ export default function PostEditor({
 
   return (
     <div>
-      <label htmlFor="title" className="label">
-        Post Title
-      </label>
-      <input
-        id="title"
-        type="text"
-        placeholder="Post Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        className="input input-bordered w-full"
-        aria-label="Title"
-      />
-      {error.title && (
-        <p className="text-error">
-          <p className="text-red-500">{error.title}</p>
-        </p>
-      )}
-
-      <label htmlFor="content" className="label mt-4">
-        Post Content
-      </label>
-      <JoditEditor
-        id="content"
-        value={content}
-        config={editorConfig}
-        onChange={(newContent) => setContent(newContent)}
-        className="w-full mt-4"
-      />
-      {error.content && (
-        <p className="text-error">
-          <p className="text-red-500">{error.content}</p>
-        </p>
-      )}
-
-      <button onClick={() => onSave()} className="btn btn-primary mt-4">
+      <button
+        onClick={() => onSave()}
+        className="btn btn-circle btn-link hover:no-underline no-underline absolute top-2 right-8 btn-sm rounded text-base z-10 w-fit"
+      >
         Save Post
       </button>
+      <div className="divider my-3"></div>
+      <div>
+        <label htmlFor="title" className="label font-bold text-lg ml-2 mt-2">
+          Post Title
+        </label>
+        <input
+          id="title"
+          type="text"
+          placeholder="Post Title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          className="input input-bordered w-full"
+          aria-label="Title"
+        />
+        {error.title && (
+          <p className="text-error ml-2">
+            <p className="text-error">{error.title}</p>
+          </p>
+        )}
+      </div>
+      <div>
+        <label htmlFor="content" className="label font-bold text-lg ml-2 mt-2">
+          Post Content
+        </label>
+
+        <JoditEditor
+          id="content"
+          value={content}
+          config={editorConfig}
+          onChange={(newContent) => setContent(newContent)}
+          className="w-full"
+        />
+        {error.content && (
+          <p className="text-error ml-2">
+            <p className="text-error">{error.content}</p>
+          </p>
+        )}
+      </div>
     </div>
   );
 }

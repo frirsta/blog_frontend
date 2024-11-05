@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { FaRegComment } from "react-icons/fa";
 import { format } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
@@ -100,12 +101,18 @@ export default function PostDetails({ params }) {
                 <Link href={`/profiles/${post?.author}`}>{post?.owner}</Link>
               </p>
             </div>
-            <LikeButton
-              postId={post?.id}
-              likesCount={post?.likes_count}
-              likesId={post?.likes_id}
-              isLiked={post?.likes_id !== null}
-            />
+            <div className="flex items-center space-x-5">
+              <div className="flex items-center space-x-2">
+                <FaRegComment />
+                &nbsp;<span>{post?.comments_count}</span>
+              </div>
+              <LikeButton
+                postId={post?.id}
+                likesCount={post?.likes_count}
+                likesId={post?.likes_id}
+                isLiked={post?.likes_id !== null}
+              />
+            </div>
           </div>
           <div className="flex">
             <p className="mt-3 text-sm font-medium text-gray-500">

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import api from "@/utils/axiosInstance";
 import Link from "next/link";
 
@@ -25,6 +25,13 @@ export default function UserSearch() {
     }
   };
 
+  useEffect(() => {
+    if (searchTerm) {
+      handleSearch();
+    } else {
+      setSearchResults([]);
+    }
+  }, [searchTerm]);
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
       <div className="mb-6">
@@ -40,18 +47,25 @@ export default function UserSearch() {
         </button>
       </div>
 
-      {loading && <p>Loading...</p>}
+      {loading && (
+        <div className="space-y-4">
+          <div className="flex items-center justify-between w-80 cursor-pointer m-auto">
+            <div className="skeleton w-10 h-10 shrink-0 rounded-full"></div>
+            <div className="skeleton h-4 w-20"></div>
+          </div>
+        </div>
+      )}
       {error && <p className="text-error">{error}</p>}
 
       <ul className="space-y-4">
         {searchResults.map((profile) => (
-          <li key={profile.id} className="flex items-center">
+          <li key={profile.id} className="flex items-center justify-center">
             <Link href={`/profile/${profile.id}`}>
-              <div className="flex items-center cursor-pointer">
+              <div className="flex items-center justify-between w-80 cursor-pointer">
                 <img
                   src={profile.profile_picture || "/profile_default.png"}
                   alt={`${profile.username}'s profile`}
-                  className="w-10 h-10 rounded-full mr-3"
+                  className="w-10 h-10 rounded-full"
                 />
                 <span className="font-bold">{profile.username}</span>
               </div>

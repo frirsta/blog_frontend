@@ -58,18 +58,22 @@ const ImageEditor = ({ imageSrc, onNext, onProcessImage }) => {
   };
 
   return (
-    <div className="w-full h-[500px]">
+    <div className="w-full h-[100%] px-1 py-5">
+      <div className="flex justify-between">
+        <button
+          className="btn btn-circle btn-link hover:no-underline no-underline absolute top-2 right-8 btn-sm rounded text-base z-10"
+          onClick={handleNext}
+        >
+          Next
+        </button>
+      </div>
       <PinturaEditor
         ref={editorRef}
         {...editorDefaults}
         imageCropAspectRatio={16 / 9}
+        layoutDirectionPreference="horizontal"
         src={imageSrc}
       />
-      <div className="flex justify-between mt-4">
-        <button className="btn btn-primary" onClick={handleNext}>
-          Next
-        </button>
-      </div>
     </div>
   );
 };

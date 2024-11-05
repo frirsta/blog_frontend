@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+import { FaArrowLeftLong } from "react-icons/fa6";
 import DOMPurify from "dompurify";
 import api from "@/utils/axiosInstance";
 import PostEditor from "./PostEditor";
@@ -19,7 +20,6 @@ const CreatePost = ({ isOpen, closeModal }) => {
 
   const modalRef = useRef(null);
 
-  // Close modal if clicked outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -35,13 +35,14 @@ const CreatePost = ({ isOpen, closeModal }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen, closeModal, step]);
 
-  // Reset form after submission or discard
   const resetForm = () => {
     setStep(1);
     setImageSrc(null);
     setProcessedImage(null);
     setTitle("");
     setContent("");
+    setErrors({});
+    closeModal();
   };
 
   // Handle back navigation and conditional warnings
@@ -101,22 +102,9 @@ const CreatePost = ({ isOpen, closeModal }) => {
         >
           <button
             onClick={handleBackStep}
-            className="btn btn-circle btn-ghost absolute top-2 left-6 btn-xs"
+            className="btn btn-circle btn-link absolute top-2 left-8 btn-sm text-base z-10"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
+            <FaArrowLeftLong className="w-6 h-6" />
           </button>
 
           {/* Step 1: Upload Image */}
