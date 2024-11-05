@@ -74,11 +74,13 @@ export default function Sidebar() {
       case "edit-profile":
       default:
         return (
-          <ProfileDetailsForm
-            profileData={profileData}
-            handleProfileDetailsChange={handleProfileDetailsChange}
-            handleSubmit={handleSubmit}
-          />
+          <div className="py-20">
+            <ProfileDetailsForm
+              profileData={profileData}
+              handleProfileDetailsChange={handleProfileDetailsChange}
+              handleSubmit={handleSubmit}
+            />
+          </div>
         );
     }
   };

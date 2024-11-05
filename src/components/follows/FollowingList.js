@@ -66,7 +66,15 @@ export default function FollowingList({ userId }) {
                     key={follow.id}
                     className="flex items-center justify-between py-2"
                   >
-                    <Link href={`/profile/${follow.id}`}>
+                    <Link
+                      className="flex items-center"
+                      href={`/profile/${follow.id}`}
+                    >
+                      <div className="avatar mr-3">
+                        <div className="w-[24px] h-[24px] rounded-full">
+                          <img src={follow.profile_picture} />
+                        </div>
+                      </div>
                       {follow.username}
                     </Link>
                     <FollowButton

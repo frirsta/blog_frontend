@@ -21,7 +21,7 @@ export function PictureForm({
           className={`absolute ${
             pictureType === "cover"
               ? "inset-0"
-              : "z-10 w-32 h-32 rounded-full border-2 border-dashed border-gray-300 p-8"
+              : "z-10 h-24 w-24 sm:h-32 sm:w-32 rounded-full border-2 border-dashed border-gray-300 p-8"
           } bg-black opacity-35 hover:opacity-50 transition-all duration-300 flex items-center justify-center`}
         >
           <FaImage
@@ -34,7 +34,7 @@ export function PictureForm({
           className={`${
             pictureType === "cover"
               ? "object-cover w-full h-[300px]"
-              : "mx-auto h-32 w-32 rounded-full border-4 border-base-100"
+              : "mx-auto h-24 w-24 sm:h-32 sm:w-32 rounded-full border-4 border-base-100"
           }`}
           src={profileData[`${pictureType}_picture`] || defaultPicture}
           alt={label}

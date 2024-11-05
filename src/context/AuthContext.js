@@ -19,7 +19,6 @@ import api, { getCurrentUser } from "../utils/axiosInstance";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [loading, setLoading] = useState(true);
   const [loginError, setLoginError] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
 
@@ -29,7 +28,8 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await api.post("api/token/", { username, password });
       saveTokens(response.data.access, response.data.refresh);
-      await initializeAuth();
+      const userData = await getCurrentUser();
+      setCurrentUser(userData);
       router.push("/");
     } catch (err) {
       setLoginError(err?.response?.data?.detail);
@@ -44,30 +44,20 @@ export const AuthProvider = ({ children }) => {
     router.push("/login");
   }, [router]);
 
-  const initializeAuth = useCallback(async () => {
-    const token = getAccessToken();
-    if (token) {
-      try {
-        const refreshedToken = await refreshAccessToken();
-        if (refreshedToken) {
-          const userData = await getCurrentUser();
-          setCurrentUser(userData);
-        } else {
-          handleLogout();
-        }
-      } catch (error) {
-        console.error("Failed to initialize auth:", error);
+  useEffect(() => {
+    const checkToken = async () => {
+      const token = getAccessToken();
+      if (token) {
+        await refreshAccessToken();
+        const userData = await getCurrentUser();
+        setCurrentUser(userData);
+      } else {
         handleLogout();
       }
-    } else {
-      setCurrentUser(null);
-    }
-    setLoading(false);
-  }, [handleLogout]);
+    };
 
-  useEffect(() => {
-    initializeAuth();
-  }, [initializeAuth]);
+    checkToken();
+  }, [getCurrentUser]);
 
   return (
     <AuthContext.Provider
@@ -78,7 +68,7 @@ export const AuthProvider = ({ children }) => {
         currentUser,
       }}
     >
-      {!loading && children}
+      {children}
     </AuthContext.Provider>
   );
 };

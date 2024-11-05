@@ -96,10 +96,10 @@ export default function EditProfilePage() {
         defaultPicture="/cover_default.png"
         label="Cover Picture"
       />
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 -mt-20 relative">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-20 relative">
         <div className="bg-base-100 shadow-xl rounded-box p-6">
-          <div className="sm:flex sm:space-x-5">
-            <div className="sm:flex sm:items-center sm:justify-between flex-shrink-0">
+          <div className="flex items-center space-x-2 sm:space-x-5">
+            <div className="flex-shrink-0">
               <PictureForm
                 pictureType="profile"
                 profileData={profileData}
@@ -124,7 +124,7 @@ export default function EditProfilePage() {
             <UserInfo profileData={profileData} />
           </div>
         </div>
-        <div className="mt-3">
+        <div className="mt-3 pb-20">
           <ProfileDetailsForm
             profileData={profileData}
             setProfileData={setProfileData}

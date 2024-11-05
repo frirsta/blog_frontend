@@ -56,7 +56,8 @@ export default function ProfilePage() {
   if (error) {
     return <p>{error}</p>;
   }
-  console.log(profileData);
+  // console.log(profileData);
+
   return (
     <div>
       <div className="relative">
@@ -64,13 +65,13 @@ export default function ProfilePage() {
           <CoverImage coverPicture={profileData?.cover_picture} />
         )}
       </div>
-      <div className="max-w-5xl mx-auto pb-8">
+      <div className="max-w-4xl mx-auto pb-8">
         <div className="bg-base-100 shadow-xl rounded-box p-6 -mt-20 relative">
-          <div className="sm:flex sm:items-start sm:justify-between">
-            <div className="sm:flex sm:space-x-5">
+          <div className="flex items-start justify-between">
+            <div className="flex items-center space-x-5">
               <div className="flex-shrink-0">
                 <Image
-                  className="mx-auto h-32 w-32 rounded-full border-4 border-base-100"
+                  className="mx-auto h-24 w-24 sm:h-32 sm:w-32 rounded-full border-4 border-base-100"
                   src={profileData?.profile_picture || "/profile_default.png"}
                   alt={profileData?.username || "Profile Picture"}
                   width={128}
@@ -79,15 +80,17 @@ export default function ProfilePage() {
               </div>
               <UserInfo profileData={profileData} />
             </div>
-            {isCurrentUser ? (
-              <Menu onLogout={handleLogout} />
-            ) : (
-              <FollowButton
-                userId={profileData?.id}
-                isFollowing={profileData?.is_following}
-                followId={profileData?.following_id}
-              />
-            )}
+            <div>
+              {isCurrentUser ? (
+                <Menu onLogout={handleLogout} />
+              ) : (
+                <FollowButton
+                  userId={profileData?.id}
+                  isFollowing={profileData?.is_following}
+                  followId={profileData?.following_id}
+                />
+              )}
+            </div>
           </div>
           <div className="mt-5 grid grid-cols-3 gap-5 text-center">
             <FollowersList userId={profileData?.id} />
@@ -101,10 +104,10 @@ export default function ProfilePage() {
         </div>
 
         <div className="mt-8">
-          <h2 className="text-2xl font-bold text-base-content mb-6">
+          <h2 className="text-2xl font-bold text-base-content mb-6 text-center">
             Recent Blog Posts
           </h2>
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 pb-20">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 pb-20 px-3">
             {posts.map((post) => (
               <Post key={post.id} post={post} />
             ))}
