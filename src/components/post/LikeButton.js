@@ -11,13 +11,11 @@ export default function LikeButton({ postId, isLiked, likesId, likesCount }) {
   const handleLike = async () => {
     try {
       if (liked) {
-        // Unlike post
         await api.delete(`/likes/${likeId}/`);
         setLiked(false);
         setLikeId(null);
         setLikes((prevCount) => prevCount - 1);
       } else {
-        // Like post
         const response = await api.post(`/likes/`, { post: postId });
         setLiked(true);
         setLikeId(response.data.id);
@@ -27,7 +25,7 @@ export default function LikeButton({ postId, isLiked, likesId, likesCount }) {
       console.error("Failed to like/unlike post:", error);
     }
   };
-  console.log(liked, likeId, likesCount, likes);
+
   return (
     <button onClick={handleLike} className="flex items-center space-x-2">
       {liked ? (

@@ -10,8 +10,8 @@ import FollowButton from "@/components/follows/FollowButton";
 import FollowingList from "@/components/follows/FollowingList";
 import FollowersList from "@/components/follows/FollowersList";
 import CoverImage from "@/components/profile/CoverImage";
+import TabList from "@/components/profile/TabList";
 import Menu from "@/components/profile/Menu";
-import Post from "@/components/ui/Post";
 
 export default function ProfilePage() {
   const { id } = useParams();
@@ -19,6 +19,7 @@ export default function ProfilePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [posts, setPosts] = useState([]);
+  const [likedPosts, setLikedPosts] = useState([]);
   const { currentUser, handleLogout } = useAuth();
   const isCurrentUser = currentUser?.id === profileData?.id;
 
@@ -46,9 +47,20 @@ export default function ProfilePage() {
         console.error(error);
       }
     };
+    const fetchLikedPosts = async () => {
+      try {
+        const response = await api.get(`posts/?likes__user__profile=${id}`);
+        setLikedPosts(response.data);
+      } catch (error) {
+        console.error("Failed to fetch liked posts:", error);
+      }
+    };
+
+    fetchLikedPosts();
 
     fetchProfile();
     fetchPosts();
+    fetchLikedPosts();
   }, [id]);
 
   if (loading) {
@@ -58,7 +70,7 @@ export default function ProfilePage() {
   if (error) {
     return <p>{error}</p>;
   }
-  // console.log(profileData);
+  console.log(likedPosts);
 
   return (
     <div>
@@ -105,15 +117,8 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        <div className="mt-8">
-          <h2 className="text-2xl font-bold text-base-content mb-6 text-center">
-            Recent Blog Posts
-          </h2>
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 pb-20 px-3">
-            {posts.map((post) => (
-              <Post key={post.id} post={post} />
-            ))}
-          </div>
+        <div className="mt-8 w-full">
+          <TabList myPosts={posts} likedPosts={likedPosts} />
         </div>
       </div>
     </div>
