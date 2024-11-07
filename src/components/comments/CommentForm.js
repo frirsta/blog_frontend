@@ -37,12 +37,14 @@ const CommentForm = ({ postId, onCommentAdded }) => {
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
           rows="3"
+          id="comment"
+          name="comment"
           required
         />
         <button type="submit" className="btn btn-primary mt-2 text-xs">
           Post Comment
         </button>
-        {error && <p className="text-red-500">{error}</p>}
+        {error && <p className="text-error">{error}</p>}
       </form>
     </div>
   );

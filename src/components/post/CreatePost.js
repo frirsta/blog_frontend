@@ -7,6 +7,7 @@ import PostEditor from "./PostEditor";
 import WarningModal from "./WarningModal";
 import ImageUpload from "./ImageUpload";
 import ImageEditor from "./ImageEditor";
+import Loading from "../ui/Loading";
 
 const CreatePost = ({ isOpen, closeModal }) => {
   const [step, setStep] = useState(1);
@@ -17,7 +18,9 @@ const CreatePost = ({ isOpen, closeModal }) => {
   const [errors, setErrors] = useState({});
   const [showWarning, setShowWarning] = useState(false);
   const [discardOrigin, setDiscardOrigin] = useState(null);
-
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [tags, setTags] = useState([]);
+  const [loading, setLoading] = useState(false);
   const modalRef = useRef(null);
 
   useEffect(() => {
@@ -41,6 +44,8 @@ const CreatePost = ({ isOpen, closeModal }) => {
     setProcessedImage(null);
     setTitle("");
     setContent("");
+    setSelectedCategory(null);
+    setTags([]);
     setErrors({});
     closeModal();
   };
@@ -72,13 +77,20 @@ const CreatePost = ({ isOpen, closeModal }) => {
   // Save post to backend
   const handleSavePost = async () => {
     const sanitizedContent = DOMPurify.sanitize(content);
+    setLoading(true);
     try {
       const formData = new FormData();
       formData.append("title", title);
       formData.append("content", sanitizedContent);
 
+      tags.forEach((tag) => formData.append("tags_names", tag));
+
       if (processedImage) {
         formData.append("image", processedImage);
+      }
+
+      if (selectedCategory) {
+        formData.append("category_id", selectedCategory);
       }
 
       const response = await api.post("posts/", formData, {
@@ -88,8 +100,10 @@ const CreatePost = ({ isOpen, closeModal }) => {
       if (response.status === 201) resetForm();
       else console.error("Failed to create post");
     } catch (error) {
-      setErrors(error.response?.data || {});
+      setErrors(error.response?.data);
       console.error("Error creating post:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -98,45 +112,58 @@ const CreatePost = ({ isOpen, closeModal }) => {
       <div className="modal opacity-100 pointer-events-auto">
         <div
           ref={modalRef}
-          className="modal-box h-[600px] modal-middle py-8 rounded-lg drop-shadow-2xl"
+          className="modal-box flex-col min-h-fit flex h-full modal-middle py-10 rounded-lg drop-shadow-2xl bg-base-200"
         >
-          <button
-            onClick={handleBackStep}
-            className="btn btn-circle btn-link absolute top-2 left-8 btn-sm text-base z-10"
-          >
-            <FaArrowLeftLong className="w-6 h-6" />
-          </button>
-
-          {/* Step 1: Upload Image */}
-          {step === 1 && (
-            <ImageUpload
-              onImageSelect={setImageSrc}
-              onNext={() => setStep(2)}
-            />
-          )}
-
-          {/* Step 2: Edit Image */}
-          <div className={`${step === 2 ? "block" : "hidden"} w-full h-full`}>
-            <ImageEditor
-              imageSrc={imageSrc}
-              onNext={() => setStep(3)}
-              onProcessImage={setProcessedImage}
-            />
-          </div>
-
-          {/* Step 3: Edit Post Details */}
-          {step === 3 && (
-            <div className="w-full">
-              <PostEditor
-                title={title}
-                setTitle={setTitle}
-                content={content}
-                setContent={setContent}
-                error={errors}
-                onSave={handleSavePost}
-              />
+          {loading ? (
+            <div className="w-full h-full flex items-center justify-center">
+              <Loading message="Creating post..." />
             </div>
+          ) : (
+            <>
+              <button
+                onClick={handleBackStep}
+                className="btn btn-sm btn-link absolute top-2 left-8 text-base-content z-10"
+              >
+                <FaArrowLeftLong className="w-5 h-5" />
+              </button>
+              <div className="divider m-0 w-full"></div>
+              {/* Step 1: Upload Image */}
+              {step === 1 && (
+                <ImageUpload
+                  onImageSelect={setImageSrc}
+                  onNext={() => setStep(2)}
+                />
+              )}
+              {/* Step 2: Edit Image */}
+              <div
+                className={`${step === 2 ? "block" : "hidden"} w-full h-full`}
+              >
+                <ImageEditor
+                  imageSrc={imageSrc}
+                  onNext={() => setStep(3)}
+                  onProcessImage={setProcessedImage}
+                />
+              </div>
+              {/* Step 3: Edit Post Details */}
+              {step === 3 && (
+                <div className="w-full">
+                  <PostEditor
+                    title={title}
+                    setTitle={setTitle}
+                    content={content}
+                    setContent={setContent}
+                    error={errors}
+                    onSave={handleSavePost}
+                    selectedCategory={selectedCategory}
+                    setSelectedCategory={setSelectedCategory}
+                    tags={tags}
+                    setTags={setTags}
+                  />
+                </div>
+              )}
+            </>
           )}
+
           {showWarning && (
             <WarningModal onCancel={cancelDiscard} onConfirm={confirmDiscard} />
           )}

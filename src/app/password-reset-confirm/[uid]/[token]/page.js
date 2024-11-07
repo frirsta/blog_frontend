@@ -32,7 +32,7 @@ export default function PasswordResetConfirm({ params }) {
           >
             <div className="card-body p-8">
               <div className="mt-6 mb-3">
-                <h2 className="card-title text-3xl font-extrabold">
+                <h2 className="card-title text-3xl font-extrabold justify-center pb-3">
                   Reset Your Password
                 </h2>
               </div>
@@ -72,7 +72,7 @@ export default function PasswordResetConfirm({ params }) {
                     type="password"
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
-                    className="input input-bordered w-full"
+                    className="input input-bordered w-full placeholder:text-base-100/50"
                     aria-label="New Password"
                     placeholder="Enter new password"
                     required
@@ -84,7 +84,7 @@ export default function PasswordResetConfirm({ params }) {
                     type="password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="input input-bordered w-full"
+                    className="input input-bordered w-full placeholder:text-base-100/50"
                     aria-label="Confirm Password"
                     placeholder="Confirm new password"
                     required

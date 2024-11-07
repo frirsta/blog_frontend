@@ -3,6 +3,7 @@ import { MessageProvider } from "@/context/MessageContext";
 import { AuthProvider } from "@/context/AuthContext";
 import Notification from "@/components/ui/Notification";
 import BtmNav from "@/components/BtmNav";
+import NavBar from "@/components/NavBar";
 
 export const metadata = {
   title: "My Blog",
@@ -16,6 +17,7 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <MessageProvider>
             <Notification />
+            <NavBar />
             {children}
             <BtmNav />
           </MessageProvider>

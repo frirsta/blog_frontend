@@ -45,12 +45,14 @@ export default function SignupPage() {
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="card w-full max-w-md bg-base-100 shadow-xl z-10"
+        className="card w-full max-w-md bg-base-100 sm:shadow-2xl sm:drop-shadow-2xl z-10"
       >
         <div className="card-body p-8">
           <div className="mt-6 mb-6">
-            <h2 className="card-title text-3xl font-extrabold">Sign Up</h2>
-            <p className="text-base-content text-opacity-70">
+            <h2 className="card-title text-4xl font-extrabold pb-3 justify-center">
+              Sign Up
+            </h2>
+            <p className="text-base-content/70 font-bold">
               Enter your details below to create an account and get started.
             </p>
           </div>
@@ -67,7 +69,7 @@ export default function SignupPage() {
                 onChange={(e) => setUsername(e.target.value)}
                 required
                 autoComplete="new-username"
-                className="input input-bordered w-full"
+                className="input input-bordered w-full placeholder:text-base-content/50"
               />
               {errors.username && (
                 <div className="text-error text-sm mt-1 ml-1">
@@ -79,7 +81,7 @@ export default function SignupPage() {
               <input
                 type="email"
                 placeholder="Your Email"
-                className="input input-bordered w-full"
+                className="input input-bordered w-full placeholder:text-base-content/50"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -95,7 +97,7 @@ export default function SignupPage() {
               <input
                 type="password"
                 placeholder="Choose a Password"
-                className="input input-bordered w-full"
+                className="input input-bordered w-full placeholder:text-base-content/50"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -111,7 +113,7 @@ export default function SignupPage() {
                 placeholder="Confirm Password"
                 value={password2}
                 onChange={(e) => setPassword2(e.target.value)}
-                className="input input-bordered w-full"
+                className="input input-bordered w-full placeholder:text-base-content/50"
                 required
                 autoComplete="new-password"
               />
@@ -125,17 +127,20 @@ export default function SignupPage() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               type="submit"
-              className="btn btn-primary w-full"
+              className="btn bg-base-content text-base-100 w-full"
             >
               Sign Up
             </motion.button>
           </form>
-          <div className="divider text-base-content text-opacity-70">
+          <div className="divider text-base-content/70 font-bold">
             Already have an account?
           </div>
 
-          <Link href="/login" className="w-fit m-auto text-primary">
-            Log In
+          <Link
+            href="/login"
+            className="w-fit m-auto text-base-content font-bold"
+          >
+            Login
           </Link>
         </div>
       </motion.div>

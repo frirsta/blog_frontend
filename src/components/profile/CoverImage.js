@@ -5,6 +5,7 @@ export default function CoverImage({ coverPicture }) {
   return (
     <div className="relative">
       <Image
+        priority
         src={coverPicture}
         alt="Cover"
         width={2000}

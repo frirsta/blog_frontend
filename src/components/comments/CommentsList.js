@@ -6,8 +6,7 @@ import { deleteComment } from "@/utils/commentService";
 import api from "@/utils/axiosInstance";
 import ConfirmationModal from "../ui/ConfirmationModal";
 
-const CommentsList = ({ postId }) => {
-  const [comments, setComments] = useState([]);
+const CommentsList = ({ postId, comments, setComments }) => {
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [commentToDelete, setCommentToDelete] = useState(null);
@@ -26,7 +25,7 @@ const CommentsList = ({ postId }) => {
     if (postId) {
       fetchComments();
     }
-  }, [postId, comments]);
+  }, [postId, isModalOpen]);
 
   const openDeleteModal = (commentId) => {
     setCommentToDelete(commentId);
@@ -71,7 +70,7 @@ const CommentsList = ({ postId }) => {
   };
 
   if (error) {
-    return <p className="text-red-500">{error}</p>;
+    return <p className="text-error">{error}</p>;
   }
 
   return (
@@ -91,7 +90,7 @@ const CommentsList = ({ postId }) => {
                     <p className="text-sm font-semibold capitalize">
                       {comment.user}
                     </p>
-                    <p className="text-sm text-gray-500 ml-3">
+                    <p className="text-xs text-base-content/70 ml-3">
                       {comment.created_at}
                     </p>
                   </div>
@@ -126,7 +125,7 @@ const CommentsList = ({ postId }) => {
           ))}
         </ul>
       ) : (
-        <p>No comments yet.</p>
+        <p className="text-center p-3">No comments yet.</p>
       )}
       {isModalOpen && (
         <ConfirmationModal

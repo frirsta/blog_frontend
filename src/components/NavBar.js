@@ -1,10 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { FaSun, FaMoon } from "react-icons/fa";
 import { themeChange } from "theme-change";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
-import Image from "next/image";
 import { useAuth } from "@/context/AuthContext";
 import CreatePost from "./post/CreatePost";
 
@@ -39,17 +39,14 @@ const NavBar = () => {
   };
 
   return (
-    <div>
-      <div className="navbar bg-base-100 text-base-content">
+    <div className="w-full fixed">
+      <div className="w-full navbar bg-base-100 text-base-content">
         <div className="flex-1">
           <Link href={"/"} className="btn btn-ghost text-xl">
             The Blog
           </Link>
         </div>
         <div className="flex-none gap-2">
-          <button onClick={openModal} className="btn btn-primary">
-            Create Post
-          </button>
           <button
             aria-label="Toggle night/valentine theme"
             className="btn btn-sm"
@@ -79,7 +76,7 @@ const NavBar = () => {
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
               >
                 <li>
-                  <Link href={"/profile"}>Profile</Link>
+                  <Link href={`/profile/${currentUser.id}`}>Profile</Link>
                 </li>
                 <li>
                   <Link href={"/settings"}>Settings</Link>

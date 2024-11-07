@@ -5,6 +5,7 @@ import { useMessage } from "@/context/MessageContext";
 import { PictureForm } from "@/components/form/PictureForm";
 import { UserInfo } from "@/components/profile/UserInfo";
 import ProfileDetailsForm from "@/components/form/ProfileDetailsForm";
+import PrivateRoute from "@/components/routes/PrivateRoute";
 import api from "@/utils/axiosInstance";
 
 export default function EditProfilePage() {
@@ -85,65 +86,67 @@ export default function EditProfilePage() {
     });
   }, [currentUser, setProfileData]);
   return (
-    <div className="min-h-screen bg-base-200">
-      <PictureForm
-        pictureType="cover"
-        profileData={profileData}
-        setProfileData={setProfileData}
-        selectedFile={selectedCoverFile}
-        setSelectedFile={setSelectedCoverFile}
-        fileRef={coverFileRef}
-        handleFileChange={(e) =>
-          handleFileChange(
-            e,
-            setSelectedCoverFile,
-            setProfileData,
-            "cover_picture",
-            "cover"
-          )
-        }
-        defaultPicture={
-          currentUser?.cover_picture || "/cover_picture_default.png"
-        }
-        label="Cover Picture"
-      />
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-20 relative">
-        <div className="bg-base-100 shadow-xl rounded-box p-6">
-          <div className="flex items-center space-x-2 sm:space-x-5">
-            <div className="flex-shrink-0">
-              <PictureForm
-                pictureType="profile"
-                profileData={profileData}
-                setProfileData={setProfileData}
-                selectedFile={selectedProfileFile}
-                setSelectedFile={setSelectedProfileFile}
-                fileRef={profileFileRef}
-                handleFileChange={(e) =>
-                  handleFileChange(
-                    e,
-                    setSelectedProfileFile,
-                    setProfileData,
-                    "profile_picture",
-                    "profile"
-                  )
-                }
-                defaultPicture={
-                  currentUser?.profile_picture || "/profile_default.png"
-                }
-                label="Profile Picture"
-              />
-            </div>
+    <PrivateRoute>
+      <div className="min-h-screen bg-base-200">
+        <PictureForm
+          pictureType="cover"
+          profileData={profileData}
+          setProfileData={setProfileData}
+          selectedFile={selectedCoverFile}
+          setSelectedFile={setSelectedCoverFile}
+          fileRef={coverFileRef}
+          handleFileChange={(e) =>
+            handleFileChange(
+              e,
+              setSelectedCoverFile,
+              setProfileData,
+              "cover_picture",
+              "cover"
+            )
+          }
+          defaultPicture={
+            currentUser?.cover_picture || "/cover_picture_default.png"
+          }
+          label="Cover Picture"
+        />
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-20 relative">
+          <div className="bg-base-100 shadow-xl rounded-box p-6">
+            <div className="flex items-center space-x-2 sm:space-x-5">
+              <div className="flex-shrink-0">
+                <PictureForm
+                  pictureType="profile"
+                  profileData={profileData}
+                  setProfileData={setProfileData}
+                  selectedFile={selectedProfileFile}
+                  setSelectedFile={setSelectedProfileFile}
+                  fileRef={profileFileRef}
+                  handleFileChange={(e) =>
+                    handleFileChange(
+                      e,
+                      setSelectedProfileFile,
+                      setProfileData,
+                      "profile_picture",
+                      "profile"
+                    )
+                  }
+                  defaultPicture={
+                    currentUser?.profile_picture || "/profile_default.png"
+                  }
+                  label="Profile Picture"
+                />
+              </div>
 
-            <UserInfo profileData={profileData} />
+              <UserInfo profileData={profileData} />
+            </div>
+          </div>
+          <div className="mt-3 pb-20">
+            <ProfileDetailsForm
+              profileData={profileData}
+              setProfileData={setProfileData}
+            />
           </div>
         </div>
-        <div className="mt-3 pb-20">
-          <ProfileDetailsForm
-            profileData={profileData}
-            setProfileData={setProfileData}
-          />
-        </div>
       </div>
-    </div>
+    </PrivateRoute>
   );
 }

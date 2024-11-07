@@ -21,7 +21,7 @@ function LoginPage() {
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="card w-full max-w-md bg-base-100 shadow-xl z-10"
+        className="card w-full max-w-md bg-base-100 sm:shadow-2xl sm:drop-shadow-2xl z-10"
       >
         <div className="card-body p-8">
           {loginError && (
@@ -43,69 +43,70 @@ function LoginPage() {
             </div>
           )}
           <div className="mt-6 mb-6">
-            <h2 className="card-title text-3xl font-extrabold">Welcome!</h2>
-            <p className="text-base-content text-opacity-70">
-              Sign in to your account
-            </p>
+            <h2 className="card-title text-4xl font-extrabold pb-3 justify-center">
+              Sign In
+            </h2>
           </div>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="form-control">
               <input
                 id="username"
+                name="username"
                 type="text"
                 placeholder="Username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
                 autoComplete="username"
-                className="input input-bordered w-full"
+                className="input input-bordered w-full placeholder:text-base-content/50"
                 aria-label="Username"
               />
             </div>
-
-            <div className="form-control">
-              <input
-                id="password"
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                autoComplete="current-password"
-                className="input input-bordered w-full"
-                aria-label="Password"
-              />
+            <div className="w-full text-right">
+              <div className="form-control">
+                <input
+                  id="password"
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  autoComplete="current-password"
+                  className="input input-bordered w-full placeholder:text-base-content/50"
+                  aria-label="Password"
+                />
+              </div>
+              <div className="p-4">
+                <Link
+                  href="/password-reset"
+                  className="m-auto text-base-content/70 font-bold"
+                >
+                  Forgotten your password?
+                </Link>
+              </div>
             </div>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               type="submit"
-              className="btn btn-primary w-full"
+              className="btn bg-base-content text-base-100 w-full"
             >
               Login
             </motion.button>
           </form>
 
-          <div className="divider text-base-content text-opacity-70">OR</div>
-          <Link href="/password-reset" className="w-fit m-auto text-primary">
-            Forgotten your password?
-          </Link>
-        </div>
-      </motion.div>
-      <motion.div
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="card w-full max-w-md bg-base-100 shadow-xl z-10 mt-3"
-      >
-        <div className="card-body p-8">
-          <div className="text-base-content text-opacity-70 text-center">
+          <div className="divider text-base-content/70">OR</div>
+
+          <div className="text-base-content/70 text-center font-bold">
             Don&apos;t have an account?&nbsp;
-            <Link href="/signup" className="w-fit m-auto text-primary">
-              Sign Up
-            </Link>
           </div>
+          <Link
+            href="/signup"
+            className="w-fit m-auto text-base-content font-bold"
+          >
+            Sign Up
+          </Link>
         </div>
       </motion.div>
     </div>

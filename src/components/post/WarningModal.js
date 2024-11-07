@@ -3,16 +3,22 @@ import React from "react";
 const WarningModal = ({ onCancel, onConfirm }) => {
   return (
     <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50">
-      <div className="p-6 bg-base-100 rounded-lg shadow-lg max-w-sm w-full">
-        <p className="text-xl font-semibold mb-4 text-center">Discard post?</p>
-        <p className="text-gray-600 mb-6 text-center">
+      <div className="p-4 bg-base-100 rounded-lg shadow-2xl drop-shadow-2xl max-w-sm w-full">
+        <p className="text-xl font-semibold text-center">Discard post?</p>
+        <p className="text-base-content/70 mb-4 text-center">
           If you leave, your edits won&apos;t be saved.
         </p>
-        <div className="flex justify-center gap-3">
-          <button className="btn btn-sm btn-outline" onClick={onCancel}>
+        <div className="flex justify-center items-center space-x-2">
+          <button
+            className="btn transition-all duration-500 btn-sm btn-outline text-sm font-bold border-base-content text-center rounded-lg"
+            onClick={onCancel}
+          >
             Cancel
           </button>
-          <button className="btn btn-sm btn-primary" onClick={onConfirm}>
+          <button
+            className="btn transition-all duration-500 btn-sm btn-error text-error-content text-sm font-bold text-center bg-error rounded-lg"
+            onClick={onConfirm}
+          >
             Discard
           </button>
         </div>

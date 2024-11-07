@@ -1,7 +1,8 @@
 "use client";
 import React, { useState } from "react";
+import { FaRegHeart } from "react-icons/fa6";
+import { FaHeart } from "react-icons/fa6";
 import api from "@/utils/axiosInstance";
-import { FaRegHeart, FaHeart } from "react-icons/fa";
 
 export default function LikeButton({ postId, isLiked, likesId, likesCount }) {
   const [liked, setLiked] = useState(isLiked);
@@ -29,11 +30,11 @@ export default function LikeButton({ postId, isLiked, likesId, likesCount }) {
   return (
     <button onClick={handleLike} className="flex items-center space-x-2">
       {liked ? (
-        <FaHeart className="text-red-500" />
+        <FaHeart className="w-5 h-5" />
       ) : (
-        <FaRegHeart className="text-gray-500" />
+        <FaRegHeart className="w-5 h-5" />
       )}
-      <span>{likes === null || likes === undefined ? "0" : likes}</span>
+      <span className="text-base-content/70">{likes}</span>
     </button>
   );
 }

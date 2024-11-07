@@ -58,10 +58,10 @@ const ImageEditor = ({ imageSrc, onNext, onProcessImage }) => {
   };
 
   return (
-    <div className="w-full h-[100%] px-1 py-5">
+    <div className="w-full h-[100%]">
       <div className="flex justify-between">
         <button
-          className="btn btn-circle btn-link hover:no-underline no-underline absolute top-2 right-8 btn-sm rounded text-base z-10"
+          className="btn btn-sm btn-link hover:no-underline no-underline absolute top-2 right-8 rounded text-base-content z-10"
           onClick={handleNext}
         >
           Next

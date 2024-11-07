@@ -50,13 +50,14 @@ const Post = ({ post, onDelete }) => {
 
   return (
     <div
-      className={`flex flex-col overflow-hidden rounded-lg shadow-lg drop-shadow-2xl`}
+      className={`flex flex-col overflow-hidden rounded-lg shadow-lg drop-shadow-2xl bg-base-300`}
     >
       <div className="flex-shrink-0">
         <Image
+          priority
           width={1000}
           height={1000}
-          className="aspect-video"
+          className="aspect-video object-contain"
           src={postImageSrc}
           alt={`Image for ${post.title}`}
         />
@@ -101,7 +102,7 @@ const Post = ({ post, onDelete }) => {
         </div>
         <div className="mt-6 flex items-center">
           <div className="flex-shrink-0">
-            <Link href={`/profiles/${post.author}`}>
+            <Link href={`/profile/${post?.owner_id}`}>
               <span className="sr-only">{post.owner}</span>
               <Image
                 width={100}
@@ -113,9 +114,9 @@ const Post = ({ post, onDelete }) => {
             </Link>
           </div>
           <div className="ml-3">
-            <p className="text-sm font-medium">
+            <p className="text-sm font-medium capitalize">
               <Link
-                href={`/profiles/${post.author}`}
+                href={`/profile/${post?.owner_id}`}
                 className="hover:underline"
               >
                 {post.owner}

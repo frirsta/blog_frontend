@@ -15,7 +15,7 @@ module.exports = {
     },
   },
   daisyui: {
-    themes: ["winter", "night"],
+    themes: ["valentine", "night"],
   },
   plugins: [require("@tailwindcss/typography"), require("daisyui")],
 };

@@ -22,13 +22,13 @@ export default function ProfilePage() {
   const [likedPosts, setLikedPosts] = useState([]);
   const { currentUser, handleLogout } = useAuth();
   const isCurrentUser = currentUser?.id === profileData?.id;
-
+  
   useEffect(() => {
     if (!id) return;
 
     const fetchProfile = async () => {
       try {
-        const response = await api.get(`profiles/${id}/`);
+        const response = await api.get(`/profiles/${id}/`);
         setProfileData(response.data);
       } catch (err) {
         setError("Failed to load profile data.");
@@ -40,7 +40,7 @@ export default function ProfilePage() {
     const fetchPosts = async () => {
       try {
         const response = await api.get(
-          `posts/?likes__user__profile=&author__profile=${id}`
+          `/posts/?user__profile=${id}`
         );
         setPosts(response.data);
       } catch (error) {
@@ -49,7 +49,7 @@ export default function ProfilePage() {
     };
     const fetchLikedPosts = async () => {
       try {
-        const response = await api.get(`posts/?likes__user__profile=${id}`);
+        const response = await api.get(`/posts/?likes__user__profile=${id}`);
         setLikedPosts(response.data);
       } catch (error) {
         console.error("Failed to fetch liked posts:", error);
@@ -70,7 +70,7 @@ export default function ProfilePage() {
   if (error) {
     return <p>{error}</p>;
   }
-  console.log(likedPosts);
+  console.log(currentUser, profileData);
 
   return (
     <div>

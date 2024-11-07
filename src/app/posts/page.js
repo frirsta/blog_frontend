@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import PrivateRoute from "@/components/routes/PrivateRoute";
 import Post from "@/components/ui/Post";
 import PostSkeleton from "./loading";
 import api from "../../utils/axiosInstance";
@@ -34,24 +35,26 @@ function PostsPage() {
   };
 
   return (
-    <div>
-      {error && <div className="error-message">{error}</div>}
-      <ul>
-        {loading ? (
-          <PostSkeleton />
-        ) : (
-          <div className="mx-auto my-20 grid max-w-lg gap-5 lg:max-w-xl lg:grid-cols-1">
-            {posts.length === 0 ? (
-              <p>No posts found.</p>
-            ) : (
-              posts.map((post) => (
-                <Post key={post.id} post={post} onDelete={handleDelete} />
-              ))
-            )}
-          </div>
-        )}
-      </ul>
-    </div>
+    <PrivateRoute>
+      <div>
+        {error && <div className="error-message">{error}</div>}
+        <ul>
+          {loading ? (
+            <PostSkeleton />
+          ) : (
+            <div className="mx-auto my-20 grid max-w-lg gap-5 lg:max-w-xl lg:grid-cols-1">
+              {posts.length === 0 ? (
+                <p>No posts found.</p>
+              ) : (
+                posts.map((post) => (
+                  <Post key={post.id} post={post} onDelete={handleDelete} />
+                ))
+              )}
+            </div>
+          )}
+        </ul>
+      </div>
+    </PrivateRoute>
   );
 }
 

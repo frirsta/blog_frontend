@@ -49,12 +49,11 @@ export default function Sidebar() {
       case "edit-profile":
       default:
         return (
-          <div className="py-20">
-            <ProfileDetailsForm
-              profileData={profileData}
-              setProfileData={setProfileData}
-            />
-          </div>
+          <ProfileDetailsForm
+            title={"Edit Profile"}
+            profileData={profileData}
+            setProfileData={setProfileData}
+          />
         );
     }
   };
@@ -77,15 +76,15 @@ export default function Sidebar() {
             <Hamburger size={24} />
           </label>
         </div>
-        <div className="z-0">
-          <h2 className="card-title text-3xl font-extrabold justify-center top-20 relative">
+        <div className="z-0 min-h-screen flex flex-col">
+          <h2 className="card-title text-3xl font-extrabold justify-center top-40 relative">
             {selectedItem === "edit-profile"
-              ? "Edit Profile"
+              ? ""
               : selectedItem === "change-password"
-              ? "Change Password"
+              ? ""
               : selectedItem === "delete-account"
               ? "Account Settings"
-              : "Reset Password"}
+              : ""}
           </h2>
           <div className="p-3 m-auto">{renderContent()}</div>
         </div>

@@ -20,11 +20,11 @@ export default function PasswordReset() {
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="card w-full max-w-md bg-base-100 shadow-xl z-10"
+            className="card w-full max-w-md bg-base-100 sm:shadow-2xl sm:drop-shadow-2xl z-10"
           >
             <div className="card-body p-8">
               <div className="mt-6 mb-3">
-                <h2 className="card-title text-3xl font-extrabold">
+                <h2 className="card-title text-3xl font-extrabold text-base-content pb-3 justify-center">
                   Reset Password
                 </h2>
               </div>
@@ -60,7 +60,7 @@ export default function PasswordReset() {
                   placeholder="Enter your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="input input-bordered w-full"
+                  className="input input-bordered w-full placeholder:text-base-content/50"
                   aria-label="Email"
                   required
                 />
@@ -68,7 +68,7 @@ export default function PasswordReset() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   type="submit"
-                  className="btn btn-primary w-full"
+                  className="btn bg-base-content text-base-100 w-full"
                 >
                   Send Reset Link
                 </motion.button>
