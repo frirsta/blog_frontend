@@ -26,7 +26,7 @@ export default function PrivateRoute({ children }) {
     if (!isPublicRoute(pathname) && !currentUser) {
       router.push("/login");
     }
-  }, [pathname, currentUser]);
+  }, [pathname, currentUser, router]);
 
   return isPublicRoute(pathname) || currentUser ? children : null;
 }

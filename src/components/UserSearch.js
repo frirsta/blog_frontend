@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import api from "@/utils/axiosInstance";
 import Link from "next/link";
 import { FaSearch } from "react-icons/fa";
+import Image from "next/image";
 export default function UserSearch() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -65,9 +66,9 @@ export default function UserSearch() {
             <li key={profile.id} className="flex items-center justify-center">
               <Link href={`/profile/${profile.id}`}>
                 <div className="flex items-center justify-between w-80 cursor-pointer">
-                  <img
+                  <Image
                     src={profile.profile_picture || "/profile_default.png"}
-                    alt={`${profile.username}'s profile`}
+                    alt={profile.username}
                     className="w-10 h-10 rounded-full"
                   />
                   <span className="font-bold">{profile.username}</span>

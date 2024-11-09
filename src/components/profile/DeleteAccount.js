@@ -20,7 +20,7 @@ export default function DeleteAccount() {
         handleLogout();
       },
       (error) => {
-        console.error("Failed to delete account:", error);
+        // console.error("Failed to delete account:", error);
         showMessage("error", "Failed to delete account. Please try again.");
       }
     );
@@ -53,7 +53,7 @@ export default function DeleteAccount() {
             <p className="text-gray-500 dark:text-gray-400">
               Please note that deleting your account is irreversible. All of
               your profile information, posts, and comments will be permanently
-              removed. If you're sure, proceed with caution.
+              removed. If you&apos;re sure, proceed with caution.
             </p>
           </div>
 

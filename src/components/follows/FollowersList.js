@@ -1,9 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import api from "@/utils/axiosInstance";
+import Image from "next/image";
 import Link from "next/link";
 import FollowButton from "./FollowButton";
-
 export default function FollowersList({ userId }) {
   const [followers, setFollowers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -19,7 +19,7 @@ export default function FollowersList({ userId }) {
         );
         setFollowers(response.data);
       } catch (err) {
-        console.error("Failed to fetch followers list:", err);
+        // console.error("Failed to fetch followers list:", err);
         setError("Failed to load followers list.");
       } finally {
         setLoading(false);
@@ -36,7 +36,7 @@ export default function FollowersList({ userId }) {
   if (error) {
     return <p>{error}</p>;
   }
-  console.log(followers);
+
   return (
     <div
       className="cursor-pointer"
@@ -71,7 +71,10 @@ export default function FollowersList({ userId }) {
                     >
                       <div className="avatar mr-3">
                         <div className="w-[24px] h-[24px] rounded-full">
-                          <img src={follower.profile_picture} />
+                          <Image
+                            alt={follower.username}
+                            src={follower.profile_picture}
+                          />
                         </div>
                       </div>
                       {follower.username}

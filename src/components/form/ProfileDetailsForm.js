@@ -68,7 +68,7 @@ export default function ProfileDetailsForm({
       location: currentUser?.location || "",
       website: currentUser?.website || "",
     });
-  }, [currentUser]);
+  }, [currentUser, setProfileData]);
 
   return (
     <div className="min-h-screen flex items-center justify-center">

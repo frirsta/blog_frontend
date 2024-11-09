@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { BsThreeDots } from "react-icons/bs";
 import { MdDelete } from "react-icons/md";
 import { deleteComment } from "@/utils/commentService";
@@ -17,7 +18,7 @@ const CommentsList = ({ postId, comments, setComments }) => {
         const response = await api.get(`/comments/?post=${postId}`);
         setComments(response.data);
       } catch (err) {
-        console.error("Failed to fetch comments:", err);
+        // console.error("Failed to fetch comments:", err);
         setError("Failed to load comments.");
       }
     };
@@ -25,7 +26,7 @@ const CommentsList = ({ postId, comments, setComments }) => {
     if (postId) {
       fetchComments();
     }
-  }, [postId, isModalOpen]);
+  }, [postId, isModalOpen, setComments]);
 
   const openDeleteModal = (commentId) => {
     setCommentToDelete(commentId);
@@ -43,7 +44,7 @@ const CommentsList = ({ postId, comments, setComments }) => {
           setIsModalOpen(false);
         },
         (error) => {
-          console.error("Failed to delete comment:", error);
+          // console.error("Failed to delete comment:", error);
           setIsModalOpen(false);
           if (error.response) {
             switch (error.response.status) {
@@ -84,7 +85,10 @@ const CommentsList = ({ postId, comments, setComments }) => {
                   <div className="flex items-center mr-3 mb-2">
                     <div className="avatar mr-2">
                       <div className="w-6 rounded-full">
-                        <img src={comment.profile_picture} />
+                        <Image
+                          alt={comment.user}
+                          src={comment.profile_picture}
+                        />
                       </div>
                     </div>
                     <p className="text-sm font-semibold capitalize">

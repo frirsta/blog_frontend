@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import api from "@/utils/axiosInstance";
 import Link from "next/link";
+import Image from "next/image";
 import FollowButton from "./FollowButton";
 
 export default function FollowingList({ userId }) {
@@ -19,7 +20,7 @@ export default function FollowingList({ userId }) {
         );
         setFollowing(response.data);
       } catch (err) {
-        console.error("Failed to fetch following list:", err);
+        // console.error("Failed to fetch following list:", err);
         setError("Failed to load following list.");
       } finally {
         setLoading(false);
@@ -72,7 +73,10 @@ export default function FollowingList({ userId }) {
                     >
                       <div className="avatar mr-3">
                         <div className="w-[24px] h-[24px] rounded-full">
-                          <img src={follow.profile_picture} />
+                          <Image
+                            alt={follow.username}
+                            src={follow.profile_picture}
+                          />
                         </div>
                       </div>
                       {follow.username}
