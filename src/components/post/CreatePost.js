@@ -25,7 +25,12 @@ const CreatePost = ({ isOpen, closeModal }) => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (modalRef.current && !modalRef.current.contains(event.target)) {
+      // Check if click is outside the modal and not inside JoditEditor
+      if (
+        modalRef.current && 
+        !modalRef.current.contains(event.target) &&
+        !event.target.closest(".jodit") // Adjust this selector if necessary
+      ) {
         if (step > 1) {
           setDiscardOrigin("outsideClick");
           setShowWarning(true);
@@ -37,6 +42,7 @@ const CreatePost = ({ isOpen, closeModal }) => {
     if (isOpen) document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen, closeModal, step]);
+  
 
   const resetForm = () => {
     setStep(1);
