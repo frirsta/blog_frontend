@@ -12,6 +12,7 @@ import FollowersList from "@/components/follows/FollowersList";
 import CoverImage from "@/components/profile/CoverImage";
 import TabList from "@/components/profile/TabList";
 import Menu from "@/components/profile/Menu";
+import PrivateRoute from "@/components/routes/PrivateRoute";
 
 export default function ProfilePage() {
   const { id } = useParams();
@@ -22,7 +23,7 @@ export default function ProfilePage() {
   const [likedPosts, setLikedPosts] = useState([]);
   const { currentUser, handleLogout } = useAuth();
   const isCurrentUser = currentUser?.id === profileData?.id;
-  
+
   useEffect(() => {
     if (!id) return;
 
@@ -39,12 +40,10 @@ export default function ProfilePage() {
 
     const fetchPosts = async () => {
       try {
-        const response = await api.get(
-          `/posts/?user__profile=${id}`
-        );
+        const response = await api.get(`/posts/?user__profile=${id}`);
         setPosts(response.data);
       } catch (error) {
-        console.error(error);
+        // console.error(error);
       }
     };
     const fetchLikedPosts = async () => {
@@ -52,7 +51,7 @@ export default function ProfilePage() {
         const response = await api.get(`/posts/?likes__user__profile=${id}`);
         setLikedPosts(response.data);
       } catch (error) {
-        console.error("Failed to fetch liked posts:", error);
+        // console.error("Failed to fetch liked posts:", error);
       }
     };
 
@@ -70,57 +69,59 @@ export default function ProfilePage() {
   if (error) {
     return <p>{error}</p>;
   }
-  console.log(currentUser, profileData);
+  // console.log(currentUser, profileData);
 
   return (
-    <div>
-      <div className="relative">
-        {profileData?.cover_picture && (
-          <CoverImage coverPicture={profileData?.cover_picture} />
-        )}
-      </div>
-      <div className="max-w-4xl mx-auto pb-8">
-        <div className="bg-base-100 shadow-xl rounded-box p-6 -mt-20 relative">
-          <div className="flex items-start justify-between">
-            <div className="flex items-center space-x-5">
-              <div className="flex-shrink-0">
-                <Image
-                  className="mx-auto h-24 w-24 sm:h-32 sm:w-32 rounded-full border-4 border-base-100"
-                  src={profileData?.profile_picture || "/profile_default.png"}
-                  alt={profileData?.username || "Profile Picture"}
-                  width={128}
-                  height={128}
-                />
+    <PrivateRoute>
+      <div>
+        <div className="relative">
+          {profileData?.cover_picture && (
+            <CoverImage coverPicture={profileData?.cover_picture} />
+          )}
+        </div>
+        <div className="max-w-4xl mx-auto pb-8">
+          <div className="bg-base-100 shadow-xl rounded-box p-6 -mt-20 relative">
+            <div className="flex items-start justify-between">
+              <div className="flex items-center space-x-5">
+                <div className="flex-shrink-0">
+                  <Image
+                    className="mx-auto h-24 w-24 sm:h-32 sm:w-32 rounded-full border-4 border-base-100"
+                    src={profileData?.profile_picture || "/profile_default.png"}
+                    alt={profileData?.username || "Profile Picture"}
+                    width={128}
+                    height={128}
+                  />
+                </div>
+                <UserInfo profileData={profileData} />
               </div>
-              <UserInfo profileData={profileData} />
+              <div>
+                {isCurrentUser ? (
+                  <Menu onLogout={handleLogout} />
+                ) : (
+                  <FollowButton
+                    userId={profileData?.id}
+                    isFollowing={profileData?.is_following}
+                    followId={profileData?.following_id}
+                  />
+                )}
+              </div>
             </div>
-            <div>
-              {isCurrentUser ? (
-                <Menu onLogout={handleLogout} />
-              ) : (
-                <FollowButton
-                  userId={profileData?.id}
-                  isFollowing={profileData?.is_following}
-                  followId={profileData?.following_id}
-                />
-              )}
+            <div className="mt-5 grid grid-cols-3 gap-5 text-center">
+              <FollowersList userId={profileData?.id} />
+              <FollowingList
+                userId={profileData?.id}
+                followId={profileData?.following_id}
+                isFollowing={profileData?.is_following}
+              />
+              <ProfileStat label="Posts" value={posts.length} />
             </div>
           </div>
-          <div className="mt-5 grid grid-cols-3 gap-5 text-center">
-            <FollowersList userId={profileData?.id} />
-            <FollowingList
-              userId={profileData?.id}
-              followId={profileData?.following_id}
-              isFollowing={profileData?.is_following}
-            />
-            <ProfileStat label="Posts" value={posts.length} />
-          </div>
-        </div>
 
-        <div className="mt-8 w-full">
-          <TabList myPosts={posts} likedPosts={likedPosts} />
+          <div className="mt-8 w-full">
+            <TabList myPosts={posts} likedPosts={likedPosts} />
+          </div>
         </div>
       </div>
-    </div>
+    </PrivateRoute>
   );
 }

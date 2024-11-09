@@ -8,6 +8,7 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
+
 .pintura-editor {
   background-color: rgba(227, 209, 222) !important;
   color: rgb(69 31 41) !important;
@@ -39,6 +40,13 @@ body {
   height: 190px !important;
   max-height: fit-content !important;
   background-color: transparent !important;
+}
+
+@media screen and (min-width: 768px) {
+  .content {
+    width: calc(100% - 4rem);
+    margin-left: auto;
+  }
 }
 
 @media screen and (min-width: 640px) {

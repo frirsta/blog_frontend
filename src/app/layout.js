@@ -4,6 +4,7 @@ import { AuthProvider } from "@/context/AuthContext";
 import Notification from "@/components/ui/Notification";
 import BtmNav from "@/components/BtmNav";
 import NavBar from "@/components/NavBar";
+import Drawer from "@/components/Drawer";
 
 export const metadata = {
   title: "My Blog",
@@ -18,7 +19,8 @@ export default function RootLayout({ children }) {
           <MessageProvider>
             <Notification />
             <NavBar />
-            {children}
+            <Drawer />
+            <div className="content">{children}</div>
             <BtmNav />
           </MessageProvider>
         </AuthProvider>

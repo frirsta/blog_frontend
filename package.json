@@ -21,6 +21,7 @@
     "framer-motion": "^11.11.6",
     "glob": "^11.0.0",
     "hamburger-react": "^2.5.1",
+    "jodit": "^4.2.41",
     "jodit-react": "^4.1.2",
     "jwt-decode": "^4.0.0",
     "lru-cache": "^11.0.1",
