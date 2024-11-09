@@ -32,7 +32,7 @@ export default function UserSearch() {
     } else {
       setSearchResults([]);
     }
-  }, [searchTerm]);
+  }, [searchTerm, handleSearch]);
   return (
     <div className="max-w-3xl md:max-w-xl mx-auto px-4 py-8">
       <div className="mb-6">
