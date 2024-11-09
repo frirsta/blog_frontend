@@ -1,28 +1,17 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FaSun, FaMoon } from "react-icons/fa";
 import { themeChange } from "theme-change";
 import { useAuth } from "@/context/AuthContext";
-import CreatePost from "./post/CreatePost";
 
 const NavBar = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentTheme, setCurrentTheme] = useState("valentine");
 
-  const { handleLogout, currentUser } = useAuth();
+  const { currentUser } = useAuth();
 
   const pathname = usePathname();
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
 
   useEffect(() => {
     themeChange(false);
@@ -39,70 +28,30 @@ const NavBar = () => {
   };
 
   return (
-    <div className="w-full fixed">
-      <div className="w-full navbar bg-base-100 text-base-content">
-        <div className="flex-1">
-          <Link href={"/"} className="btn btn-ghost text-xl">
-            The Blog
-          </Link>
-        </div>
-        <div className="flex-none gap-2">
-          <button
-            aria-label="Toggle night/valentine theme"
-            className="btn btn-sm"
-            onClick={handleThemeToggle}
-          >
-            {currentTheme === "valentine" ? <FaMoon /> : <FaSun />}
-          </button>
-
-          {currentUser ? (
-            <div className="dropdown dropdown-end">
-              <div
-                tabIndex={0}
-                role="button"
-                className="btn btn-ghost btn-circle avatar"
-              >
-                <div className="w-10 rounded-full">
-                  <Image
-                    alt="Tailwind CSS Navbar component"
-                    width={40}
-                    height={40}
-                    src={currentUser.profile_picture || "/profile_default.png"}
-                  />
-                </div>
-              </div>
-              <ul
-                tabIndex={0}
-                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-              >
-                <li>
-                  <Link href={`/profile/${currentUser.id}`}>Profile</Link>
-                </li>
-                <li>
-                  <Link href={"/settings"}>Settings</Link>
-                </li>
-                <li>
-                  <button className="text-left" onClick={handleLogout}>
-                    Log out
-                  </button>
-                </li>
-              </ul>
-            </div>
-          ) : pathname === "/login" ? (
-            <Link href="/signup" role="button" className="btn">
-              Sign Up
-            </Link>
-          ) : (
-            <Link href="/login" role="button" className="btn">
-              Login
-            </Link>
-          )}
+    !currentUser && (
+      <div className="w-full fixed">
+        <div className="w-full navbar text-base-content navbar-end">
+          <div className="flex-none gap-2 navbar-end">
+            <button
+              aria-label="Toggle night/valentine theme"
+              className="btn btn-sm"
+              onClick={handleThemeToggle}
+            >
+              {currentTheme === "valentine" ? <FaMoon /> : <FaSun />}
+            </button>
+            {pathname === "/login" ? (
+              <Link href="/signup" role="button" className="btn">
+                Sign Up
+              </Link>
+            ) : (
+              <Link href="/login" role="button" className="btn">
+                Login
+              </Link>
+            )}
+          </div>
         </div>
       </div>
-      {isModalOpen && (
-        <CreatePost isOpen={isModalOpen} closeModal={closeModal} />
-      )}
-    </div>
+    )
   );
 };
 
