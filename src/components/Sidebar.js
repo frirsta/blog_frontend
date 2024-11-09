@@ -86,7 +86,7 @@ export default function Sidebar() {
               ? "Account Settings"
               : ""}
           </h2>
-          <div className="p-3 m-auto">{renderContent()}</div>
+          <div className="p-3">{renderContent()}</div>
         </div>
       </div>
 

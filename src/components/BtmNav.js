@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { GoHomeFill } from "react-icons/go";
 import { IoIosAddCircle } from "react-icons/io";
-import { FaSearch } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
@@ -14,17 +13,13 @@ export default function BtmNav() {
     <div className="fixed z-20">
       {currentUser && (
         <>
-          <div className="btm-nav btm-nav-sm bg-base-200">
+          <div className="btm-nav md:hidden bg-base-200">
             <Link href="/posts">
               <GoHomeFill className="h-[24px] w-[24px]" />
-            </Link>
-            <Link href="/search">
-              <FaSearch className="h-[22px] w-[22px]" />
             </Link>
             <button onClick={() => setIsModalOpen(true)}>
               <IoIosAddCircle className="h-[24px] w-[24px]" />
             </button>
-
             <div>
               <div className="dropdown dropdown-top dropdown-left">
                 <div
