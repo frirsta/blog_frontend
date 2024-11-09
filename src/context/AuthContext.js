@@ -19,6 +19,8 @@ import api from "../utils/axiosInstance";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [loginError, setLoginError] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
 
@@ -27,8 +29,9 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await api.post("api/token/", { username, password });
       saveTokens(response.data.access, response.data.refresh);
+      setIsLoggedIn(true);
       await fetchCurrentUser();
-      router.push("/");
+      router.push("/posts");
     } catch (err) {
       setLoginError(err?.response?.data?.detail);
       console.error(err);
@@ -37,6 +40,7 @@ export const AuthProvider = ({ children }) => {
 
   const handleLogout = useCallback(() => {
     clearTokens();
+    setIsLoggedIn(false);
     setCurrentUser(null);
     setLoginError(null);
     router.push("/login");
@@ -56,18 +60,25 @@ export const AuthProvider = ({ children }) => {
     const checkToken = async () => {
       const token = getAccessToken();
       if (token) {
+        setIsLoggedIn(true);
         await refreshAccessToken();
         await fetchCurrentUser();
       } else {
+        setIsLoggedIn(false);
       }
+      setLoading(false);
     };
 
     checkToken();
-  }, [fetchCurrentUser, router]);
+  }, [fetchCurrentUser]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <AuthContext.Provider
-      value={{ handleLogout, handleLogin, loginError, currentUser }}
+      value={{ isLoggedIn, handleLogout, handleLogin, loginError, currentUser }}
     >
       {children}
     </AuthContext.Provider>

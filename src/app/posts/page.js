@@ -5,6 +5,7 @@ import PrivateRoute from "@/components/routes/PrivateRoute";
 import Post from "@/components/ui/Post";
 import PostSkeleton from "./loading";
 import api from "../../utils/axiosInstance";
+import UserSearch from "@/components/UserSearch";
 
 function PostsPage() {
   const [posts, setPosts] = useState([]);
@@ -30,25 +31,20 @@ function PostsPage() {
     fetchPosts();
   }, [posts]);
 
-  const handleDelete = (postId) => {
-    setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
-  };
-
   return (
     <PrivateRoute>
       <div>
+        <UserSearch />
         {error && <div className="error-message">{error}</div>}
         <ul>
           {loading ? (
             <PostSkeleton />
           ) : (
-            <div className="mx-auto my-20 grid max-w-lg gap-5 lg:max-w-xl lg:grid-cols-1">
+            <div className="mx-auto p-3 grid max-w-lg gap-5 lg:max-w-xl lg:grid-cols-1">
               {posts.length === 0 ? (
                 <p>No posts found.</p>
               ) : (
-                posts.map((post) => (
-                  <Post key={post.id} post={post} onDelete={handleDelete} />
-                ))
+                posts.map((post) => <Post key={post.id} post={post} />)
               )}
             </div>
           )}

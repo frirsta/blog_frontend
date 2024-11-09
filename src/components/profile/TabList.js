@@ -13,7 +13,7 @@ const TabList = ({ myPosts, likedPosts }) => {
         defaultChecked
       />
       <div role="tabpanel" className="tab-content p-10">
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 pb-20 px-3">
+        <div className="grid gap-10 sm:gap-3 md:gap-3 sm:grid-cols-2 lg:grid-cols-3 pb-20 px-3">
           {myPosts.map((post) => (
             <Post key={post.id} post={post} />
           ))}
@@ -27,7 +27,7 @@ const TabList = ({ myPosts, likedPosts }) => {
         aria-label="Liked Posts"
       />
       <div role="tabpanel" className="tab-content p-10">
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 pb-20 px-3">
+        <div className="grid gap-10 sm:gap-3 md:gap-3 sm:grid-cols-2 lg:grid-cols-3 pb-20 px-3">
           {likedPosts.map((post) => (
             <Post key={post.id} post={post} />
           ))}

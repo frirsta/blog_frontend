@@ -4,7 +4,7 @@ import { MdDelete } from "react-icons/md";
 
 export default function Menu({ onDelete }) {
   return (
-    <div className="dropdown dropdown-top">
+    <div className="dropdown dropdown-top dropdown-left">
       <div tabIndex={0} role="button">
         <BsThreeDots tabIndex={0} role="button" />
       </div>
