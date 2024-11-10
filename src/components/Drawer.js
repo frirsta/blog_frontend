@@ -21,7 +21,10 @@ const Drawer = () => {
             </Link>
           </li>
           <li>
-            <button onClick={() => setIsModalOpen(true)}>
+            <button
+              aria-label="Upload post"
+              onClick={() => setIsModalOpen(true)}
+            >
               <IoIosAddCircle className="h-[24px] w-[24px]" />
             </button>
           </li>
@@ -37,7 +40,7 @@ const Drawer = () => {
             <div tabIndex={0} role="button" className="avatar">
               <div className="rounded-full">
                 <Image
-                  alt="User avatar"
+                  alt={`${currentUser?.username} avatar` || "User avatar"}
                   width={24}
                   height={24}
                   src={currentUser?.profile_picture || "/profile_default.png"}

@@ -46,7 +46,11 @@ export default function UserSearch() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <button onClick={handleSearch} className="btn btn-ghost">
+          <button
+            aria-label="search by username"
+            onClick={handleSearch}
+            className="btn btn-ghost"
+          >
             <FaSearch />
           </button>
         </label>

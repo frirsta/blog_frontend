@@ -17,7 +17,10 @@ export default function BtmNav() {
             <Link href="/posts">
               <GoHomeFill className="h-[24px] w-[24px]" />
             </Link>
-            <button onClick={() => setIsModalOpen(true)}>
+            <button
+              aria-label="Upload post"
+              onClick={() => setIsModalOpen(true)}
+            >
               <IoIosAddCircle className="h-[24px] w-[24px]" />
             </button>
             <div>
@@ -29,7 +32,7 @@ export default function BtmNav() {
                 >
                   <div className="rounded-full">
                     <Image
-                      alt="User avatar"
+                      alt={`${currentUser?.username} avatar` || "User avatar"}
                       width={24}
                       height={24}
                       src={

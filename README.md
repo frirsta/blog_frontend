@@ -120,6 +120,15 @@ If the user tries to navigate away from the post editor or backtrack without sav
 
 # Testing
 
+## Loghthouse
+
+### Sign in
+
+<img src="./public/lighthouse_signin.png">
+
+### Sign up
+
+<img src="./public/lighthouse_signup.png">
 # Technologies
 
 ## Core technologies
