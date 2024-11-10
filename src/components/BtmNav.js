@@ -43,7 +43,7 @@ export default function BtmNav() {
                   className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
                 >
                   <li>
-                    <Link href={`/profile/${currentUser.id}`}>Profile</Link>
+                    <Link href={`/profile/${currentUser.id}/`}>Profile</Link>
                   </li>
                   <li>
                     <Link href={"/settings"}>Settings</Link>

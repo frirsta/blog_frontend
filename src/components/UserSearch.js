@@ -1,16 +1,17 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import api from "@/utils/axiosInstance";
 import Link from "next/link";
 import { FaSearch } from "react-icons/fa";
 import Image from "next/image";
+
 export default function UserSearch() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const handleSearch = async () => {
+  const handleSearch = useCallback(async () => {
     if (!searchTerm) return;
 
     setLoading(true);
@@ -24,7 +25,7 @@ export default function UserSearch() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [searchTerm]);
 
   useEffect(() => {
     if (searchTerm) {
@@ -33,6 +34,7 @@ export default function UserSearch() {
       setSearchResults([]);
     }
   }, [searchTerm, handleSearch]);
+
   return (
     <div className="max-w-3xl md:max-w-xl mx-auto px-4 py-8">
       <div className="mb-6">
@@ -67,6 +69,8 @@ export default function UserSearch() {
               <Link href={`/profile/${profile.id}`}>
                 <div className="flex items-center justify-between w-80 cursor-pointer">
                   <Image
+                    width={100}
+                    height={100}
                     src={profile.profile_picture || "/profile_default.png"}
                     alt={profile.username}
                     className="w-10 h-10 rounded-full"
