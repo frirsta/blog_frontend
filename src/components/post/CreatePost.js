@@ -8,6 +8,7 @@ import WarningModal from "./WarningModal";
 import ImageUpload from "./ImageUpload";
 import ImageEditor from "./ImageEditor";
 import Loading from "../ui/Loading";
+import { useMessage } from "@/context/MessageContext";
 
 const CreatePost = ({ isOpen, closeModal }) => {
   const [step, setStep] = useState(1);
@@ -21,13 +22,14 @@ const CreatePost = ({ isOpen, closeModal }) => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [tags, setTags] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { showMessage } = useMessage();
   const modalRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       // Check if click is outside the modal and not inside JoditEditor
       if (
-        modalRef.current && 
+        modalRef.current &&
         !modalRef.current.contains(event.target) &&
         !event.target.closest(".jodit") // Adjust this selector if necessary
       ) {
@@ -42,7 +44,6 @@ const CreatePost = ({ isOpen, closeModal }) => {
     if (isOpen) document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen, closeModal, step]);
-  
 
   const resetForm = () => {
     setStep(1);
@@ -103,11 +104,16 @@ const CreatePost = ({ isOpen, closeModal }) => {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      if (response.status === 201) resetForm();
-      else console.error("Failed to create post");
+      if (response.status === 201) {
+        showMessage("success", "Post created successfully");
+        resetForm();
+      } else {
+        showMessage("error", "Failed to create post");
+        // console.error("Failed to create post");
+      }
     } catch (error) {
       setErrors(error.response?.data);
-      console.error("Error creating post:", error);
+      // console.error("Error creating post:", error);
     } finally {
       setLoading(false);
     }
