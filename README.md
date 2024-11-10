@@ -2,6 +2,44 @@
 
 Blogify is a full-featured, responsive blog platform designed to facilitate meaningful content sharing and interaction among users. With a focus on community, Blogify enables users to connect by following each other, liking posts, commenting, and exploring content across various categories and tags. Built with Next.js, the platform provides a seamless, fast-loading frontend experience, while leveraging robust authentication and an efficient REST API to connect with the Django backend.
 
+Live link [Live](https://frirsta-blog-frontend-bfdde69332c7.herokuapp.com/)
+
+Frontend repository [Repository](https://github.com/frirsta/blog_frontend)
+
+Backend repository [Repository](https://github.com/frirsta/blog_backend)
+
+Project
+Project management
+Design
+User Experience UX
+Features
+Future Features
+Testing
+Technologies
+Bugs
+Deployment
+Credits
+
+# Responsive Mockup
+
+# Project Management
+
+I have used Github issues and Github project board for project management.
+
+### Agile methodology
+
+- Must Have - Are the issues that have to be top priority.
+- Should have - Are second priority.
+- Could have - Third priority.
+- Won't have - Is what will not be in the project.
+  The Won't have label is for long term use in the project and has not been
+
+<img src="./public/issues.png" width="" height="" alt="project issues">
+
+<img src="./public/project.png">
+
+# User Experience UX
+
 # Features
 
 ## Existing Features
@@ -80,3 +118,49 @@ If the user tries to navigate away from the post editor or backtrack without sav
 
 - Notifications: Real-time notifications for likes, follows, and comments to keep users updated.
 - Analytics Dashboard: Insightful analytics for users to track their post engagement and follower growth.
+
+# Testing
+
+# Technologies
+
+## Core technologies
+
+- Next.js: A React framework used for building the frontend (next version 15.0.3).
+- React: A JavaScript library for building user interfaces (react and react-dom version 18).
+- Tailwind CSS: A utility-first CSS framework used for styling (tailwindcss version 3.4.1).
+
+## UI and Design
+
+- daisyUI: A Tailwind CSS plugin that provides pre-designed components (daisyui version 4.12.13).
+- @pqina/pintura: An image editor for the frontend (@pqina/pintura version 8.89.2).
+- framer-motion: A library for animations and transitions in React (framer-motion version 11.11.6).
+- hamburger-react: A React component for creating a hamburger menu (hamburger-react version 2.5.1).
+- react-icons: A library for including icons in React (react-icons version 5.3.0).
+- react-select: A flexible and customizable dropdown component (react-select version 5.8.2).
+- theme-change: A library for theme switching (theme-change version 2.5.0).
+
+## Utilities
+
+- axios: A promise-based HTTP client for making API requests (axios version 1.7.7).
+- date-fns: A library for working with dates (date-fns version 4.1.0).
+- jwt-decode: A library for decoding JWT tokens (jwt-decode version 4.0.0).
+- dompurify: A library for sanitizing HTML (dompurify version 3.1.7).
+- country-list: A library for working with country lists (country-list version 2.3.0).
+
+# Bugs
+
+- Occasionally, the dropdown menu in the navigation bar may not close on mobile when switching between pages. This issue is actively being worked on and will be resolved in future updates.
+
+# Deployment
+
+## Live Link
+
+Live link [Live](https://frirsta-blog-frontend-bfdde69332c7.herokuapp.com/)
+
+# Credits
+
+## Media
+
+### Icons
+
+- React icons
