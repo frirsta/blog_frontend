@@ -74,6 +74,8 @@ export default function FollowersList({ userId }) {
                           <Image
                             alt={follower.username}
                             src={follower.profile_picture}
+                            width={100}
+                            height={100}
                           />
                         </div>
                       </div>

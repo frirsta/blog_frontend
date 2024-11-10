@@ -88,6 +88,8 @@ const CommentsList = ({ postId, comments, setComments }) => {
                         <Image
                           alt={comment.user}
                           src={comment.profile_picture}
+                          width={100}
+                          height={100}
                         />
                       </div>
                     </div>
