@@ -8,17 +8,16 @@ Frontend repository [Repository](https://github.com/frirsta/blog_frontend)
 
 Backend repository [Repository](https://github.com/frirsta/blog_backend)
 
-Project
-Project management
-Design
-User Experience UX
-Features
-Future Features
-Testing
-Technologies
-Bugs
-Deployment
-Credits
+- [Project](#the-blog--blogify)
+- [Project management](#project-management)
+- [User Experience UX](#user-experience-ux)
+- [Features](#features)
+- [Future Features](#future-features)
+- [Testing](#testing)
+- [Technologies](#technologies)
+- [Bugs](#bugs)
+- [Deployment](#deployment)
+- [Credits](#credits)
 
 # Responsive Mockup
 
@@ -152,6 +151,16 @@ If the user tries to navigate away from the post editor or backtrack without sav
 - Occasionally, the dropdown menu in the navigation bar may not close on mobile when switching between pages. This issue is actively being worked on and will be resolved in future updates.
 
 # Deployment
+
+## Deploying to Heroku
+
+This project is deployed to Heroku. To deploy it, follow these steps:
+
+1. Create a new app on the [Heroku Dashboard](https://heroku.com/).
+
+2. Connect the app to the frontend GitHub repository.
+
+3. Deploy the app.
 
 ## Live Link
 
