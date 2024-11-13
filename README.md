@@ -128,6 +128,7 @@ If the user tries to navigate away from the post editor or backtrack without sav
 ### Sign up
 
 <img src="./public/lighthouse_signup.png">
+
 # Technologies
 
 ## Core technologies
