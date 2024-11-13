@@ -1,22 +1,24 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePosts } from "@/context/PostContext";
 import PrivateRoute from "@/components/routes/PrivateRoute";
-import Post from "@/components/ui/Post";
-import PostSkeleton from "./loading";
-import api from "../../utils/axiosInstance";
 import UserSearch from "@/components/UserSearch";
+import Post from "@/components/ui/Post";
+import api from "../../utils/axiosInstance";
+import PostSkeleton from "./loading";
 
 function PostsPage() {
-  const [posts, setPosts] = useState([]);
+  const { posts, setAllPosts } = usePosts();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
+        setLoading(true);
         const response = await api.get("posts/");
-        setPosts(response.data);
+        setAllPosts(response.data);
       } catch (err) {
         if (err.response && err.response.data) {
           setError(err.response.data.detail || "An unexpected error occurred.");
@@ -29,7 +31,7 @@ function PostsPage() {
     };
 
     fetchPosts();
-  }, [posts]);
+  }, [setAllPosts]);
 
   return (
     <PrivateRoute>

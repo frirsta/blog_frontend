@@ -1,6 +1,8 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { FaArrowLeftLong } from "react-icons/fa6";
+import { useMessage } from "@/context/MessageContext";
+import { usePosts } from "@/context/PostContext";
 import DOMPurify from "dompurify";
 import api from "@/utils/axiosInstance";
 import PostEditor from "./PostEditor";
@@ -8,7 +10,6 @@ import WarningModal from "./WarningModal";
 import ImageUpload from "./ImageUpload";
 import ImageEditor from "./ImageEditor";
 import Loading from "../ui/Loading";
-import { useMessage } from "@/context/MessageContext";
 
 const CreatePost = ({ isOpen, closeModal }) => {
   const [step, setStep] = useState(1);
@@ -23,6 +24,7 @@ const CreatePost = ({ isOpen, closeModal }) => {
   const [tags, setTags] = useState([]);
   const [loading, setLoading] = useState(false);
   const { showMessage } = useMessage();
+  const { addPost } = usePosts();
   const modalRef = useRef(null);
 
   useEffect(() => {
@@ -106,6 +108,7 @@ const CreatePost = ({ isOpen, closeModal }) => {
 
       if (response.status === 201) {
         showMessage("success", "Post created successfully");
+        addPost(response.data);
         resetForm();
       } else {
         showMessage("error", "Failed to create post");

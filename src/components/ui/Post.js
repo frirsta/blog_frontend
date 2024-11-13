@@ -49,7 +49,7 @@ const Post = ({ post }) => {
               categoryName={category.name}
             />
           ))}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-4 ml-auto">
             <LikeButton
               postId={post.id}
               likesCount={post.likes_count}
