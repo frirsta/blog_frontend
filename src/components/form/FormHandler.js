@@ -22,10 +22,10 @@ const FormHandler = ({
             "persistentMessage",
             JSON.stringify({ type: "success", content: successMessage })
           );
-          console.log(
-            "Success message stored in localStorage:",
-            successMessage
-          );
+          // console.log(
+          //   "Success message stored in localStorage:",
+          //   successMessage
+          // );
           showMessage("success", successMessage);
         }
         setTimeout(() => {
@@ -39,7 +39,7 @@ const FormHandler = ({
         error.response?.data?.detail ||
         "Something went wrong. Please try again.";
       showMessage("error", errorMessage);
-      console.error("Error during form submission:", error);
+      // console.error("Error during form submission:", error);
     }
   };
 

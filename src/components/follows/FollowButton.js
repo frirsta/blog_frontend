@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import api from "@/utils/axiosInstance";
 import { useAuth } from "@/context/AuthContext";
+import api from "@/utils/axiosInstance";
 
 export default function FollowButton({ userId, isFollowing, followId }) {
   const [following, setFollowing] = useState(isFollowing);
@@ -22,7 +22,7 @@ export default function FollowButton({ userId, isFollowing, followId }) {
         setFollowing(true);
       }
     } catch (error) {
-      console.error("Failed to follow/unfollow user:", error);
+      // console.error("Failed to follow/unfollow user:", error);
     }
   };
 

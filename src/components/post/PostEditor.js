@@ -25,7 +25,7 @@ export default function PostEditor({
         const response = await api.get("/posts/category/");
         setCategories(response.data);
       } catch (err) {
-        console.error("Failed to fetch categories:", err);
+        // console.error("Failed to fetch categories:", err);
       }
     };
     fetchCategories();

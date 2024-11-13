@@ -11,20 +11,20 @@ export const MessageProvider = ({ children }) => {
     const persistentMessage = localStorage.getItem("persistentMessage");
     if (persistentMessage) {
       const parsedMessage = JSON.parse(persistentMessage);
-      console.log("Retrieved message from localStorage:", parsedMessage);
+      // console.log("Retrieved message from localStorage:", parsedMessage);
       setMessage(parsedMessage);
       localStorage.removeItem("persistentMessage");
 
       setTimeout(() => {
         setMessage(null);
-        console.log("Message cleared after 5 seconds");
+        // console.log("Message cleared after 5 seconds");
       }, 5000);
     }
   }, []);
 
   const showMessage = (type, content) => {
     setMessage({ type, content });
-    console.log("Message set:", { type, content });
+    // console.log("Message set:", { type, content });
 
     localStorage.setItem(
       "persistentMessage",
@@ -34,7 +34,7 @@ export const MessageProvider = ({ children }) => {
     setTimeout(() => {
       setMessage(null);
       localStorage.removeItem("persistentMessage");
-      console.log("Message cleared after 5 seconds");
+      // console.log("Message cleared after 5 seconds");
     }, 5000);
   };
 

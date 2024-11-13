@@ -23,7 +23,7 @@ export default function LikeButton({ postId, isLiked, likesId, likesCount }) {
         setLikes((prevCount) => prevCount + 1);
       }
     } catch (error) {
-      console.error("Failed to like/unlike post:", error);
+      // console.error("Failed to like/unlike post:", error);
     }
   };
 

@@ -24,7 +24,7 @@ export default function PostPage({ params }) {
         setPost(res.data);
         // console.log(res.data);
       } catch (err) {
-        console.error("Error fetching post:", err);
+        // console.error("Error fetching post:", err);
         setError(err);
       } finally {
         setLoading(false);
@@ -36,12 +36,12 @@ export default function PostPage({ params }) {
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error loading post</div>;
-  console.log(post);
+  // console.log(post);
 
   return (
     <PrivateRoute>
       <div className="py-20">
-        <PostDetails post={post}  />
+        <PostDetails post={post} />
         <div className="max-w-2xl mx-auto pb-20 px-4 sm:px-6 lg:px-8">
           <h3 className="text-2xl font-bold mb-6">
             Comments {post?.comments_count}

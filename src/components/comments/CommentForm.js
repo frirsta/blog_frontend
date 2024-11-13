@@ -19,7 +19,7 @@ const CommentForm = ({ postId, onCommentAdded }) => {
       onCommentAdded(response.data);
       setNewComment("");
     } catch (err) {
-      console.error("Failed to submit comment:", err);
+      // console.error("Failed to submit comment:", err);
       setError("Failed to submit comment.");
     }
   };

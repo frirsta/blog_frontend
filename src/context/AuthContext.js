@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
       router.push("/posts");
     } catch (err) {
       setLoginError(err?.response?.data?.detail);
-      console.error(err);
+      // console.error(err);
     }
   };
 
@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }) => {
       const response = await api.get("current-user/");
       setCurrentUser(response.data);
     } catch (err) {
-      console.error("Failed to fetch current user:", err);
+      // console.error("Failed to fetch current user:", err);
       handleLogout();
     }
   }, [handleLogout]);

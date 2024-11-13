@@ -5,7 +5,7 @@ import { useMessage } from "@/context/MessageContext";
 export default function Notification() {
   const { message } = useMessage();
 
-  console.log("Notification Component - Current Message:", message);
+  // console.log("Notification Component - Current Message:", message);
 
   if (!message) return null;
 
