@@ -85,7 +85,7 @@ const PostDetails = ({ post, onDelete }) => {
                 <Image
                   width={100}
                   height={100}
-                  className="h-8 w-8 rounded-full"
+                  className="h-8 w-8 rounded-full object-cover"
                   src={authorImageSrc}
                   alt={post.user || "Image not available"}
                 />
@@ -93,7 +93,7 @@ const PostDetails = ({ post, onDelete }) => {
             </div>
             <div className="flex justify-between items-center w-full">
               <div className="ml-3">
-                <p className="text-xs font-medium capitalize">
+                <p className="text-sm font-medium capitalize">
                   <Link
                     href={`/profile/${post?.owner_id}`}
                     className="hover:underline"

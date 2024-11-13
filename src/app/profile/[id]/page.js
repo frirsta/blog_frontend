@@ -85,7 +85,7 @@ export default function ProfilePage() {
               <div className="flex items-center space-x-5">
                 <div className="flex-shrink-0">
                   <Image
-                    className="mx-auto h-24 w-24 sm:h-32 sm:w-32 rounded-full border-4 border-base-100 object-contain"
+                    className="mx-auto h-24 w-24 sm:h-32 sm:w-32 rounded-full border-4 border-base-100 object-cover"
                     src={profileData?.profile_picture || "/profile_default.png"}
                     alt={profileData?.username || "Profile Picture"}
                     width={128}

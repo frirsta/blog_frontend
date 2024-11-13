@@ -34,7 +34,7 @@ export function PictureForm({
           className={`${
             pictureType === "cover"
               ? "object-cover w-full h-[300px]"
-              : "mx-auto h-24 w-24 sm:h-32 sm:w-32 rounded-full border-4 border-base-100"
+              : "mx-auto h-24 w-24 sm:h-32 sm:w-32 rounded-full border-4 border-base-100 object-cover"
           }`}
           src={profileData[`${pictureType}_picture`] || defaultPicture}
           alt={label}

@@ -40,6 +40,7 @@ const Drawer = () => {
             <div tabIndex={0} role="button" className="avatar">
               <div className="rounded-full">
                 <Image
+                  className="object-cover rounded-full"
                   alt={`${currentUser?.username} avatar` || "User avatar"}
                   width={24}
                   height={24}

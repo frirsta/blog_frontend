@@ -77,9 +77,11 @@ export default function UserSearch() {
                     height={100}
                     src={profile.profile_picture || "/profile_default.png"}
                     alt={profile.username}
-                    className="w-10 h-10 rounded-full"
+                    className="w-10 h-10 rounded-full object-cover"
                   />
-                  <span className="font-bold">{profile.username}</span>
+                  <span className="font-bold capitalize">
+                    {profile.username}
+                  </span>
                 </div>
               </Link>
             </li>

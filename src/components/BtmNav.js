@@ -15,13 +15,17 @@ export default function BtmNav() {
         <>
           <div className="btm-nav md:hidden bg-base-200">
             <Link href="/posts">
-              <GoHomeFill className="h-[24px] w-[24px]" />
+              <div className="btn btn-ghost btn-circle avatar">
+                <GoHomeFill className="h-[24px] w-[24px]" />
+              </div>
             </Link>
             <button
               aria-label="Upload post"
               onClick={() => setIsModalOpen(true)}
             >
-              <IoIosAddCircle className="h-[24px] w-[24px]" />
+              <div className="btn btn-ghost btn-circle avatar">
+                <IoIosAddCircle className="h-[24px] w-[24px]" />
+              </div>
             </button>
             <div>
               <div className="dropdown dropdown-top dropdown-left">
@@ -32,6 +36,7 @@ export default function BtmNav() {
                 >
                   <div className="rounded-full">
                     <Image
+                      className="object-cover rounded-full"
                       alt={`${currentUser?.username} avatar` || "User avatar"}
                       width={24}
                       height={24}
