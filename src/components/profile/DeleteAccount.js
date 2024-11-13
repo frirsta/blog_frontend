@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useMessage } from "@/context/MessageContext";
 import { useAuth } from "@/context/AuthContext";
-import { deleteAccount } from "@/utils/accountService";
 import ConfirmationModal from "@/components/ui/ConfirmationModal";
 
 export default function DeleteAccount() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { handleLogout, currentUser } = useAuth();
+  const { currentUser, deleteAccount } = useAuth();
   const { showMessage } = useMessage();
-
   const openDeleteModal = () => setIsModalOpen(true);
 
   const handleDeleteAccount = () => {
@@ -17,7 +15,6 @@ export default function DeleteAccount() {
       currentUser?.id,
       () => {
         showMessage("success", "Account deleted successfully.");
-        handleLogout();
       },
       (error) => {
         // console.error("Failed to delete account:", error);

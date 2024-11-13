@@ -76,9 +76,28 @@ export const AuthProvider = ({ children }) => {
     return <div>Loading...</div>;
   }
 
+  const deleteAccount = async (profileId, onSuccess, onError) => {
+    try {
+      await api.delete(`/profiles/${profileId}/`);
+      onSuccess();
+      clearTokens();
+      setCurrentUser(null);
+      router.push("/login");
+    } catch (error) {
+      onError(error);
+    }
+  };
+
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn, handleLogout, handleLogin, loginError, currentUser }}
+      value={{
+        isLoggedIn,
+        handleLogout,
+        handleLogin,
+        loginError,
+        currentUser,
+        deleteAccount,
+      }}
     >
       {children}
     </AuthContext.Provider>
