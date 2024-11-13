@@ -35,7 +35,7 @@ function PostsPage() {
 
   return (
     <PrivateRoute>
-      <div>
+      <div className="pb-24">
         <UserSearch />
         {error && <div className="error-message">{error}</div>}
         <ul>

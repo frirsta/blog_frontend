@@ -27,11 +27,10 @@ I have used Github issues and Github project board for project management.
 
 ### Agile methodology
 
-- Must Have - Are the issues that have to be top priority.
-- Should have - Are second priority.
-- Could have - Third priority.
-- Won't have - Is what will not be in the project.
-  The Won't have label is for long term use in the project and has not been
+- **Must Have** - Are the issues that have to be top priority.
+- **Should have** - Are second priority.
+- **Could have** - Third priority.
+- **Won't have** - Will not be in the project.
 
 <img src="./public/issues.png" width="" height="" alt="project issues">
 
