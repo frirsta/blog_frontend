@@ -4,11 +4,12 @@ import api from "@/utils/axiosInstance";
 import Image from "next/image";
 import Link from "next/link";
 import FollowButton from "./FollowButton";
+import { useAuth } from "@/context/AuthContext";
 export default function FollowersList({ userId }) {
   const [followers, setFollowers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const { currentUser } = useAuth();
   useEffect(() => {
     if (!userId) return;
 
@@ -81,11 +82,15 @@ export default function FollowersList({ userId }) {
                       </div>
                       {follower.username}
                     </Link>
-                    <FollowButton
-                      userId={follower.id}
-                      isFollowing={follower.is_following}
-                      followId={follower.following_id}
-                    />
+                    {currentUser.id === follower.id ? (
+                      ""
+                    ) : (
+                      <FollowButton
+                        userId={follower.id}
+                        isFollowing={follower.is_following}
+                        followId={follower.following_id}
+                      />
+                    )}
                   </li>
                 ))}
               </ul>

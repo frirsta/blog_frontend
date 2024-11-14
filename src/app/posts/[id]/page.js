@@ -40,7 +40,7 @@ export default function PostPage({ params }) {
 
   return (
     <PrivateRoute>
-      <div className="py-20">
+      <div>
         <PostDetails post={post} />
         <div className="max-w-2xl mx-auto pb-20 px-4 sm:px-6 lg:px-8">
           <h3 className="text-2xl font-bold mb-6">
