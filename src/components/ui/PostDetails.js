@@ -62,9 +62,13 @@ const PostDetails = ({ post, onDelete }) => {
       <article className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl py-12">
         <header className="mb-8">
           <div className="flex items-center justify-between mb-4">
-            {post.category.map((category) => (
-              <Category key={category.id} categoryName={category.name} />
-            ))}
+            <div className="flex">
+              {post.category.map((category) => (
+                <div key={category.id} className="pr-1">
+                  <Category categoryName={category.name} />
+                </div>
+              ))}
+            </div>
             <div className="flex items-center space-x-4 text-sm text-base-content/70">
               <div className="flex items-center">
                 <FaRegCalendar className="w-4 h-4 mr-1" />
@@ -83,6 +87,7 @@ const PostDetails = ({ post, onDelete }) => {
               <Link href={`/profile/${post?.owner_id}`}>
                 <span className="sr-only">{post.user}</span>
                 <Image
+                  priority
                   width={100}
                   height={100}
                   className="h-8 w-8 rounded-full object-cover"
@@ -121,11 +126,12 @@ const PostDetails = ({ post, onDelete }) => {
 
         <div className="relative mb-8">
           <Image
+            priority
             width={1000}
             height={1000}
             src={postImageSrc}
             alt={post?.title}
-            className="aspect-video object-contain"
+            className="aspect-video object-cover"
           />
         </div>
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold my-6 text-base-content leading-tight capitalize">

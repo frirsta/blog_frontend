@@ -15,6 +15,7 @@ import {
 } from "../services/tokenService";
 import { refreshAccessToken } from "../utils/refreshToken";
 import api from "../utils/axiosInstance";
+import { logoutUser } from "@/utils/auth";
 
 const AuthContext = createContext();
 
@@ -38,8 +39,8 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const handleLogout = useCallback(() => {
-    clearTokens();
+  const handleLogout = useCallback(async () => {
+    await logoutUser();
     setIsLoggedIn(false);
     setCurrentUser(null);
     setLoginError(null);

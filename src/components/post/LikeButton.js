@@ -7,7 +7,7 @@ import api from "@/utils/axiosInstance";
 export default function LikeButton({ postId, isLiked, likesId, likesCount }) {
   const [liked, setLiked] = useState(isLiked);
   const [likeId, setLikeId] = useState(likesId);
-  const [likes, setLikes] = useState(likesCount);
+  const [likes, setLikes] = useState(Number.isNaN(likesCount) ? 0 : likesCount);
 
   const handleLike = async () => {
     try {

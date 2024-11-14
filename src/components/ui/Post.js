@@ -14,7 +14,7 @@ const calculateReadingTime = (text) => {
 };
 const getImageUrl = (imagePath) => {
   if (!imagePath) {
-    return "/post_image_default.png";
+    return "/cover_picture_default.png";
   }
   return imagePath.startsWith("http")
     ? imagePath
@@ -35,7 +35,7 @@ const Post = ({ post }) => {
           priority
           width={1000}
           height={1000}
-          className="aspect-video object-contain rounded-t-lg"
+          className="aspect-video object-cover rounded-t-lg"
           src={postImageSrc}
           alt={`Image for ${post.title}`}
         />

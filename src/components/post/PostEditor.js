@@ -44,8 +44,7 @@ export default function PostEditor({
       showCharsCounter: false,
       disablePlugins:
         "clean-html,about,add-new-line,ai-assistant,backspace,class-span,drag-and-drop,drag-and-drop-element,dtd,file,focus,format-block,hotkeys,hr,iframe,image,image-processor,image-properties,indent,inline-popup,justify,key-arrow-outside,limit,line-height,media,paste-from-word,powered-by-jodit,resize-handler,resizer,search,select,select-cells,source,speech-recognize,stat,sticky,symbols,tab,table,table-keyboard-navigation,video,wrap-nodes,xpath,spellcheck,clipboard,copyformat,delete-command,color,enter,fullsize,mobile,paste-storage,placeholder,resize-cells",
-      buttons:
-        "bold,italic,underline,strikethrough,ul,ol,font,fontsize,link,undo,redo",
+      buttons: "bold,italic,underline,strikethrough,font,fontsize,undo,redo",
     }),
     []
   );
@@ -156,7 +155,7 @@ export default function PostEditor({
           name="content"
           value={content}
           config={editorConfig}
-          onChange={(newContent) => setContent(newContent)}
+          onBlur={(newContent) => setContent(newContent)}
           className="w-full"
         />
         {error?.content && <p className="text-error ml-2">{error?.content}</p>}
