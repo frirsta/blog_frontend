@@ -2,11 +2,13 @@
 
 Blogify is a full-featured, responsive blog platform designed to facilitate meaningful content sharing and interaction among users. With a focus on community, Blogify enables users to connect by following each other, liking posts, commenting, and exploring content across various categories and tags. Built with Next.js, the platform provides a seamless, fast-loading frontend experience, while leveraging robust authentication and an efficient REST API to connect with the Django backend.
 
-Live link [Live](https://frirsta-blog-frontend-bfdde69332c7.herokuapp.com/)
+<img src="public/blog_mockup.png">
 
-Frontend repository [Repository](https://github.com/frirsta/blog_frontend)
+Live link: [Live](https://frirsta-blog-frontend-bfdde69332c7.herokuapp.com/)
 
-Backend repository [Repository](https://github.com/frirsta/blog_backend)
+Frontend repository: [Repository](https://github.com/frirsta/blog_frontend)
+
+Backend repository: [Repository](https://github.com/frirsta/blog_backend)
 
 - [Project](#the-blog--blogify)
 - [Project management](#project-management)
