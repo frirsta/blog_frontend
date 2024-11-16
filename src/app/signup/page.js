@@ -11,14 +11,14 @@ export default function SignupPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
-  const [errors, setErrors] = useState("");
+  const [errors, setErrors] = useState({});
   const { handleLogin } = useAuth();
 
   const handleSignup = async (e) => {
     e.preventDefault();
 
     if (password !== password2) {
-      setErrors("Passwords do not match.");
+      setErrors({ password2: "Passwords do not match." });
       return;
     }
 
