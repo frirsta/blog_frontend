@@ -21,14 +21,12 @@ export default function SignupPage() {
       setErrors({ password2: "Passwords do not match." });
       return;
     }
-
     try {
       await api.post("/profiles/register/", {
         username,
         email,
         password,
       });
-
       handleLogin(username, password);
     } catch (err) {
       if (err.response && err.response.data) {
