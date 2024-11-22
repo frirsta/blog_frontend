@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { usePosts } from "@/context/PostContext";
 import PrivateRoute from "@/components/routes/PrivateRoute";
 import UserSearch from "@/components/UserSearch";
-import Post from "@/components/ui/Post";
+import Post from "@/components/post/Post";
 import api from "../../utils/axiosInstance";
 import PostSkeleton from "./loading";
 

@@ -8,8 +8,8 @@ import { themeChange } from "theme-change";
 import { useAuth } from "@/context/AuthContext";
 import ChangePassword from "@/app/change-password/page";
 import PasswordReset from "@/app/password-reset/page";
-import ProfileDetailsForm from "./form/ProfileDetailsForm";
-import DeleteAccount from "./profile/DeleteAccount";
+import ProfileDetailsForm from "../form/ProfileDetailsForm";
+import DeleteAccount from "../profile/DeleteAccount";
 
 export default function Sidebar() {
   const { currentUser } = useAuth();

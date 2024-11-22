@@ -4,7 +4,7 @@ import api from "@/utils/axiosInstance";
 import PrivateRoute from "@/components/routes/PrivateRoute";
 import CommentsList from "@/components/comments/CommentsList";
 import CommentForm from "@/components/comments/CommentForm";
-import PostDetails from "@/components/ui/PostDetails";
+import PostDetails from "@/components/post/PostDetails";
 
 export default function PostPage({ params }) {
   const { id } = React.use(params);
