@@ -7,6 +7,7 @@ import UserSearch from "@/components/UserSearch";
 import Post from "@/components/post/Post";
 import api from "../../utils/axiosInstance";
 import PostSkeleton from "./loading";
+import ExploreAccounts from "@/components/ExploreAccounts";
 
 function PostsPage() {
   const { posts, setAllPosts } = usePosts();
@@ -35,6 +36,8 @@ function PostsPage() {
 
   return (
     <PrivateRoute>
+      <div className="flex justify-center">
+
       <div className="pb-24">
         <UserSearch />
         {error && <div className="error-message">{error}</div>}
@@ -51,6 +54,10 @@ function PostsPage() {
             </div>
           )}
         </ul>
+      </div>
+      <div>
+        <ExploreAccounts />
+      </div>
       </div>
     </PrivateRoute>
   );
