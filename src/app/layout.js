@@ -3,9 +3,9 @@ import { MessageProvider } from "@/context/MessageContext";
 import { AuthProvider } from "@/context/AuthContext";
 import { PostsProvider } from "@/context/PostContext";
 import Notification from "@/components/ui/Notification";
-import BtmNav from "@/components/BtmNav";
-import NavBar from "@/components/NavBar";
-import Drawer from "@/components/Drawer";
+import BtmNav from "@/components/navigation/BtmNav";
+import NavBar from "@/components/navigation/NavBar";
+import Drawer from "@/components/navigation/Drawer";
 
 export const metadata = {
   title: "My Blog",

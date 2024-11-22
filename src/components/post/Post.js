@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaRegComment } from "react-icons/fa";
 import { format } from "date-fns";
-import LikeButton from "../post/LikeButton";
+import LikeButton from "./LikeButton";
 import Category from "./Category";
 
 const calculateReadingTime = (text) => {

@@ -5,7 +5,7 @@ import { IoIosAddCircle } from "react-icons/io";
 import Image from "next/image";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
-import CreatePost from "./post/CreatePost";
+import CreatePost from "../post/CreatePost";
 export default function BtmNav() {
   const { handleLogout, currentUser } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);

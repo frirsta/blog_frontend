@@ -1,5 +1,5 @@
 import React from "react";
-import Post from "../ui/Post";
+import Post from "../post/Post";
 
 const TabList = ({ myPosts, likedPosts }) => {
   return (
