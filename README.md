@@ -77,9 +77,11 @@ Blogify provides an intuitive process for creating new posts, including image up
    The image upload feature allows users to attach an image to their post, enhancing visual storytelling. After selecting an image, users are taken to an integrated image editor where they can fine-tune the uploaded image before adding it to their post.
 
 - Upload Interface: A file input area allows users to upload their image.
+
   <img src="./public/upload_interface.png"  width="70%">
 
 - Preview: After editing, users see a preview of the image before proceeding with the post.
+
   <img src="./public/image_editor.png"  width="70%">
 
 2. Post Content Editor
@@ -124,6 +126,7 @@ If the user tries to navigate away from the post editor or backtrack without sav
 ### User Search
 
 - Allowing users to search for other users by their username.
+
   <img src="./public/user_search.png" width="50%">
 
 ### Post Details
@@ -131,6 +134,7 @@ If the user tries to navigate away from the post editor or backtrack without sav
  <img src="./public/post_details_page.png" width="70%">
 
 - **Comments**: Users can comment on posts, contributing to interactive discussions.
+
   <img src="./public/post_details_page_comments.png" width="70%">
 
    <img src="./public/comment_delete.png" width="70%">
@@ -160,6 +164,7 @@ If the user tries to navigate away from the post editor or backtrack without sav
 ##### **Profile Actions**:
 
 - **Follow/Unfollow Button**: Users can follow or unfollow other profiles directly from the profile page.
+
   <img src="./public/follow_unfollow.png" width="50%">
 
 - **Menu**: The menu allows the profile owner to go to the edit profile page, settings page or log out of the application.
@@ -173,7 +178,7 @@ If the user tries to navigate away from the post editor or backtrack without sav
 
 # Testing
 
-## Loghthouse
+## Lighthouse
 
 ### Sign in
 
