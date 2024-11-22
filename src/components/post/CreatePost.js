@@ -127,10 +127,10 @@ const CreatePost = ({ isOpen, closeModal }) => {
       <div className="modal opacity-100 pointer-events-auto">
         <div
           ref={modalRef}
-          className="modal-box flex-col min-h-fit flex h-full modal-middle py-10 rounded-lg drop-shadow-2xl bg-base-200"
+          className="modal-box flex-col min-h-fit flex modal-middle py-10 rounded-lg drop-shadow-2xl bg-base-200"
         >
           {loading ? (
-            <div className="w-full h-full flex items-center justify-center">
+            <div className="w-full h-[550px] max-h-[80vh] flex items-center justify-center">
               <Loading message="Creating post..." />
             </div>
           ) : (

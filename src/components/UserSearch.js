@@ -40,6 +40,8 @@ export default function UserSearch() {
       <div className="mb-6">
         <label className="input input-bordered flex items-center gap-2">
           <input
+            id="search"
+            name="search"
             type="text"
             className="grow"
             placeholder="Search"

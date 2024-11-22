@@ -17,14 +17,14 @@ const ExploreAccounts = () => {
         );
         setUsers(filteredUsers.slice(0, 5));
       } catch (error) {
-        console.error(error);
+        // console.error(error);
       }
     };
     fetchUsers();
-  }, []);
-  console.log(users);
+  }, [currentUser.id]);
+
   return (
-    <div className="hidden lg:block w-64 pt-14 ml-16">
+    <div className="hidden lg:block w-64 pt-14 mx-16">
       {users.length > 0 ? (
         <ul>
           <p className="font-bold text-center">Suggested for you</p>

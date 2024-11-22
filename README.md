@@ -77,15 +77,20 @@ Blogify provides an intuitive process for creating new posts, including image up
    The image upload feature allows users to attach an image to their post, enhancing visual storytelling. After selecting an image, users are taken to an integrated image editor where they can fine-tune the uploaded image before adding it to their post.
 
 - Upload Interface: A file input area allows users to upload their image.
+  <img src="./public/upload_interface.png"  width="70%">
+
 - Preview: After editing, users see a preview of the image before proceeding with the post.
+  <img src="./public/image_editor.png"  width="70%">
 
 2. Post Content Editor
    Once the image is uploaded and edited, users can begin crafting their post. The post editor supports rich text formatting, making it easy to create visually appealing content.
 
 - Title Input: Users can add a title for the post.
 - Text Editor: A rich text editor (Jodit Editor) allows for text formatting.
-- Category Selection: Users can select a category for their post from a predefined list of options such as Health, Beauty, Travel, Fashion, etc.
+- Category Selection: Users can select a category for their post from a predefined list of options such as Health, Beauty, Travel, City, etc.
 - Tags: Users can add tags to categorize their post further and improve discoverability.
+
+  <img src="./public/post_editor.png" width="70%">
 
 3. Saving and Publishing
    Once the post is complete, users can publish it immediately. The post, along with the uploaded image and content, is sent to the backend via a multipart/form-data request. The backend handles storing the image and post content.
@@ -98,26 +103,73 @@ Blogify provides an intuitive process for creating new posts, including image up
 
 If the user tries to navigate away from the post editor or backtrack without saving, a warning modal appears, confirming whether the user wants to discard their unsaved changes. This ensures that users don't lose any progress accidentally.
 
-### Profile Management
+### Posts Page
 
-- Users can customize their profiles with an avatar, cover image, bio, and website URL.
-- This feature fosters personalization, allowing users to represent themselves in the community.
+- Posts Feed: Displays a feed of all posts by users, allowing for seamless content exploration.
 
-### User Interaction Features
+  <img src="./public/posts_page.png" width="70%">
 
-- Following System: Users can follow/unfollow others, enhancing content discovery and social engagement.
-- Like Functionality: Users can like posts, with a dynamic like count that updates in real-time.
-- Comments: Users can comment on posts, contributing to interactive discussions.
-  Search: An integrated search bar enables users to find other users easily.
+  <img src="./public/post_component.png" width="70%">
 
-### Content Categorization
+- **Like Functionality**: Users can like posts, with a dynamic like count that updates in real-time.
 
-- Posts can be categorized by predefined categories like Health, Beauty, Travel, Fashion and Others.
+   <img src="./public/like_comment.png" width="50%">
+
+### Explore Accounts
+
+- This feature displays a list of suggested users that the current user is not already following, allowing for easier discovery of new accounts.
+
+  <img src="./public/explore_accounts.png" width="50%">
+
+### User Search
+
+- Allowing users to search for other users by their username.
+  <img src="./public/user_search.png" width="50%">
+
+### Post Details
+
+ <img src="./public/post_details_page.png" width="70%">
+
+- **Comments**: Users can comment on posts, contributing to interactive discussions.
+  <img src="./public/post_details_page_comments.png" width="70%">
+
+   <img src="./public/comment_delete.png" width="70%">
+
+### Profile Page
+
+<img src="./public/profile_page.png">
+
+#### **User Information Display**:
+
+##### **Users can personalize their profile with**:
+
+- **Profile Picture and Cover Image**: Upload and update profile and cover images to give a personalized touch.
+- **Bio**: Write a short introduction or description about themselves.
+- **Website and Location**: Include optional information such as a personal website and location.
+
+   <img src="./public/profile_statistics_info.png">
+
+##### **Profile Statistics**:
+
+- **Followers and Following Lists**: Users can view lists of their followers and the people they are following.
+- **Posts Count**: Displays the total number of posts created by the user.
+
+   <img src="./public/profile_followers.png" width="45%">
+   <img src="./public/profile_following.png" width="45%">
+
+##### **Profile Actions**:
+
+- **Follow/Unfollow Button**: Users can follow or unfollow other profiles directly from the profile page.
+  <img src="./public/follow_unfollow.png" width="50%">
+
+- **Menu**: The menu allows the profile owner to go to the edit profile page, settings page or log out of the application.
+
+  <img src="./public/profile_menu.png" width="50%">
 
 ## Future Features
 
-- Notifications: Real-time notifications for likes, follows, and comments to keep users updated.
-- Analytics Dashboard: Insightful analytics for users to track their post engagement and follower growth.
+- **Notifications**: Real-time notifications for likes, follows, and comments to keep users updated.
+- **Analytics Dashboard**: Insightful analytics for users to track their post engagement and follower growth.
 
 # Testing
 

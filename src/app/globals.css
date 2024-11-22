@@ -14,7 +14,7 @@ body {
   color: rgb(69 31 41) !important;
 }
 .PinturaRootWrapper {
-  height: 100% !important;
+  height: 550px !important;
   max-height: 80vh !important;
 }
 
@@ -39,6 +39,7 @@ body {
 .jodit-workplace {
   height: 190px !important;
   max-height: fit-content !important;
+  min-height: unset !important;
   background-color: transparent !important;
 }
 
@@ -51,7 +52,7 @@ body {
 
 @media screen and (min-width: 640px) {
   .jodit-workplace {
-    height: 200px !important;
+    height: 100% !important;
     max-height: fit-content !important;
     background-color: transparent !important;
   }

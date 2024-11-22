@@ -50,15 +50,17 @@ export default function PostEditor({
   );
 
   return (
-    <div>
+    <div className="h-[550px] max-h-[80vh]">
       <button
         onClick={() => onSave()}
         className="btn btn-link btn-sm hover:no-underline no-underline absolute top-2 right-8 rounded text-base-content z-10 w-fit"
       >
         Save Post
       </button>
-      <div className="sm:mt-2">
-        <span className="label font-bold ml-2">Post Title</span>
+      <div className="sm:mt-0">
+        <span className="label text-sm sm:text-md font-bold ml-2">
+          Post Title
+        </span>
         <input
           id="title"
           name="title"
@@ -71,8 +73,10 @@ export default function PostEditor({
         />
         {error?.title && <p className="text-error ml-2">{error?.title}</p>}
       </div>
-      <div className="sm:mt-4">
-        <span className="label font-bold ml-2">Category</span>
+      <div className="sm:mt-1">
+        <span className="label text-sm sm:text-md font-bold ml-2">
+          Category
+        </span>
         <select
           id="category"
           name="category"
@@ -90,8 +94,8 @@ export default function PostEditor({
           ))}
         </select>
       </div>
-      <div className="sm:mt-4">
-        <span className="label font-bold text-lg ml-2">Tags</span>
+      <div className="sm:mt-1">
+        <span className="label text-sm sm:text-md font-bold ml-2">Tags</span>
         <CreatableSelect
           id="tags"
           name="tags"
@@ -149,7 +153,9 @@ export default function PostEditor({
         )}
       </div>
       <div>
-        <span className="label font-bold ml-2">Post Content</span>
+        <span className="label text-sm sm:text-md font-bold ml-2">
+          Post Content
+        </span>
         <JoditEditor
           id="content"
           name="content"
