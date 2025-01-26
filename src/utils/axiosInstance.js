@@ -3,7 +3,7 @@ import { refreshAccessToken } from "./refreshToken";
 import { getAccessToken } from "../services/tokenService";
 
 const api = axios.create({
-  baseURL: "https://frirsta-blog-53010ec1265c.herokuapp.com/",
+  baseURL: "https://frirsta-blogify-8b8b9ff7f8c5.herokuapp.com/",
 });
 
 api.interceptors.request.use(

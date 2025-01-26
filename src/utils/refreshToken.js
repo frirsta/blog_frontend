@@ -6,7 +6,7 @@ import {
 } from "../services/tokenService";
 
 const API_URL =
-  "https://frirsta-blog-53010ec1265c.herokuapp.com/api/token/refresh/";
+  "https://frirsta-blogify-8b8b9ff7f8c5.herokuapp.com/api/token/refresh/";
 
 export const refreshAccessToken = async () => {
   const refreshToken = getRefreshToken();
