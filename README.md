@@ -4,7 +4,7 @@ Blogify is a full-featured, responsive blog platform designed to facilitate mean
 
 <img src="public/blog_mockup.png">
 
-Live link: [Live](https://frirsta-blog-frontend-bfdde69332c7.herokuapp.com/)
+Live link: [Live](https://blogify-frirsta.vercel.app/login)
 
 Frontend repository: [Repository](https://github.com/frirsta/blog_frontend)
 
